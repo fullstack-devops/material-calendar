@@ -1,0 +1,21 @@
+{
+  "name": "angular-calendar",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.1.9",
+    "@angular/core": "^9.1.9",
+    "@angular/cdk": "^9.2.4",
+    "@angular/flex-layout": "^9.0.0-beta.31",
+    "moment": "^2.26.0",
+    "@angular/material": "^9.2.4"
+  },
+  "dependencies": {
+    "@angular/cdk": "^9.2.4",
+    "@angular/flex-layout": "^9.0.0-beta.31",
+    "@angular/material": "^9.2.4",
+    "moment": "^2.26.0",
+    "moment-business": "^3.0.1",
+    "moment-feiertage": "^2.0.2",
+    "tslib": "^1.10.0"
+  }
+}

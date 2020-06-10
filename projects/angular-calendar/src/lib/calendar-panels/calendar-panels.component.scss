@@ -1,0 +1,66 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+.divdivbox {
+    position: fixed;
+    top: 170px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+}
+
+.divbox {
+    max-width: 1024px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    background-color: var(--panel-color);
+    padding: 8px;
+    border-radius: 5px;
+}
+
+mat-grid-list {
+    display: inline-block;
+    vertical-align: top;
+    margin: 8px;
+    width: 240px;
+}
+
+mat-grid-tile {
+    text-align: center;
+    color: var(--text-color);
+}
+
+.weekdayNames {
+    color: var(--panel-color-lighter);
+}
+
+.highlight {
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 103, 127, 0.1);
+}
+
+.Weekend {
+    background-color: var(--panel-color-darker);
+}
+
+.Feiertag {
+    background-color: rgb(255, 166, 0);
+    color: #79aebf;
+}
+
+.KW {
+    color: var(--panel-color-lighter);
+    border-right: 1px solid var(--panel-color-lighter);
+}
+
+.placeholderTrue {
+    color: var(--panel-color-lighter);
+}
+.placeholderFalse {
+    background: none;
+}
+.placeholderFalse a {
+    display: none;
+}

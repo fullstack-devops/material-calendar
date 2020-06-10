@@ -1,0 +1,36 @@
+<div class="divbox mat-elevation-z8" *ngIf="!isLoading">
+    <mat-grid-list *ngFor="let monat of calendar.months" cols="8" rowHeight="30px">
+        <mat-grid-tile colspan="8" rowspan="1">
+            {{monat.name}}
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile class="weekdayNames" *ngFor="let wotage of weekdayNames" colspan="1" rowspan="1">
+            {{wotage}}
+        </mat-grid-tile>
+
+        <ng-container *ngFor="let day of monat.render">
+
+            <mat-grid-tile *ngIf="day.type === 'kw'" colspan="1" rowspan="1" class="KW">
+                {{day.kw}}
+            </mat-grid-tile>
+
+            <mat-grid-tile *ngIf="day.type === 'leer'" colspan="1" rowspan="1"></mat-grid-tile>
+
+            <mat-grid-tile *ngIf="day.type === 'placeholderDay'" colspan="1" rowspan="1"
+                [ngClass]="[day.isWeekendDay? 'Weekend' : '', placeholderDay ? 'placeholderTrue':'placeholderFalse']">
+                <a>{{day.day}}</a>
+            </mat-grid-tile>
+
+            <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test"
+                [ngClass]="day.isWeekendDay? 'Weekend' : ''">
+                {{day.day}}
+            </mat-grid-tile>
+
+
+        </ng-container>
+
+    </mat-grid-list>
+    <mat-icon>
+        navigate_next
+    </mat-icon>
+</div>
