@@ -40,58 +40,33 @@ export class CalendarService {
   // weekdayNames = this.weekdaysShort.push(this.weekdaysShort.shift());
   monthNames = this.momentLoc.monthsShort()
 
-  makeWJObjekt(day: Day, type: string, dateBack?: number) {
-    let newDay = null
-    if (dateBack) {
-      newDay = moment(day.date).subtract(dateBack, 'days')
-    } else {
-      newDay = moment(day.date)
-    }
-    let result
-    switch (type) {
-      case 'kw':
-        result = {
-          kw: day.kw,
-          type: 'kw'
-        }
-        break;
-      case 'leer':
-        result = {
-          kw: newDay.week(),
-          type: 'leer',
-          day: newDay.date(),
-          isWeekendDay: business.isWeekendDay(moment(newDay)),
-          isHoliday: moment(newDay).isHoliday([])['allStates']
-        }
-        break;
-      case 'placeholderDay':
-        result = {
-          kw: newDay.week(),
-          type: 'placeholderDay',
-          day: newDay.date(),
-          isWeekendDay: business.isWeekendDay(moment(newDay)),
-          isHoliday: moment(newDay).isHoliday([])['allStates']
-        }
-        break;
-    }
-    return result
-  }
 
   /**
-  * @param {Calendar} calendar     Monat von 1 bis 12
+  * @param {Calendar} calendar     Custom data, (optinal)
+  * @param {Number}   year         Gerarate calender for one year, (optinal)
+  * @param {Number}   currMonth    current selected month, (optinal)
+  * @param {Number}   monthsBefore months before the selected month, (optinal) default 0
+  * @param {Number}   monthsAfter  months after the selected month, (optinal) default 0
   */
-  generateMatrix(year: number, placeholderDay?: boolean, calendar?: Calendar) {
-    console.log(placeholderDay)
-    let emptyOrPlaceholder = 'placeholderDay'
-    if (placeholderDay === true) {
-      emptyOrPlaceholder = 'placeholderDay'
-    }
-    console.log(emptyOrPlaceholder)
-
+  generateMatrix(calendar?: Calendar, year?: number, currMonth?: number, monthsBefore?: number, monthsAfter?: number) {
+    // is a current month selected?
     let cal = calendar;
-    if (!calendar) {
-      cal = this.generateCal(year)
+    if (currMonth > 0) {
+      const months: Month[] = []
+      months.push(this.generateMonth(currMonth, year))
+      if (!calendar) {
+        cal = {
+          months: months,
+          year: null
+        }
+      }
+    } else {
+      // Custom calendar data?
+      if (!calendar) {
+        cal = this.generateCal(year)
+      }
     }
+    console.log(cal)
 
     cal.months.forEach((month, index) => {
       month.days.forEach(day => {
@@ -111,11 +86,11 @@ export class CalendarService {
       }
       // Vormonat
       for (let i = 0; i < dayOfWeek - 1; i++) {
-        render.splice(i, 0, this.makeWJObjekt(firstMonthDay, emptyOrPlaceholder, (dayOfWeek - 1) - i));
+        render.splice(i, 0, this.makeWJObjekt(firstMonthDay, 'placeholderDay', (dayOfWeek - 1) - i));
       }
       // Nachmonat
       for (let i = 0; render.length < 42; i--) {
-        render.splice(render.length + 1, 0, this.makeWJObjekt(nextMonthDay, emptyOrPlaceholder, i));
+        render.splice(render.length + 1, 0, this.makeWJObjekt(nextMonthDay, 'placeholderDay', i));
       }
       // Kalenderwochen
       render.splice(0, 0, this.makeWJObjekt(render[0], "kw"));
@@ -131,39 +106,67 @@ export class CalendarService {
     return cal;
   }
 
+  makeWJObjekt(day: Day, type: string, dateBack?: number) {
+    let newDay = null
+    if (dateBack) {
+      newDay = moment(day.date).subtract(dateBack, 'days')
+    } else {
+      newDay = moment(day.date)
+    }
+    let result
+    switch (type) {
+      case 'kw':
+        result = {
+          kw: day.kw,
+          type: 'kw'
+        }
+        break;
+      case 'placeholderDay':
+        result = {
+          kw: newDay.week(),
+          type: 'placeholderDay',
+          day: newDay.date(),
+          isWeekendDay: business.isWeekendDay(moment(newDay)),
+          isHoliday: moment(newDay).isHoliday([])['allStates']
+        }
+        break;
+    }
+    return result
+  }
+
   generateCal(year: number): Calendar {
+    //if ()
+    const months = []
+    for (let index = 0; index < this.monthNames.length; index++) {
+      months.push(this.generateMonth(index, year))
+    }
     return {
       year: year,
-      months: this.generateMonth(year)
+      months: months
     }
   }
 
-  generateMonth(year) {
-    console.log(this.momentLoc)
-    const calendar: Month[] = []
-    for (let index = 0; index < this.monthNames.length; index++) {
-      calendar.push({
-        name: this.monthNames[index],
-        days: this.generateDay(index, year)
-      })
-    }
-
-    return calendar
-  }
-
-  generateDay(monthNumber: number, yearNumber: number) {
-    const daysInMonth = moment(`${yearNumber}-${monthNumber + 1}`, "YYYY-MM").daysInMonth()
-    const month: Day[] = [];
+  generateMonth(monthNumber, year) {
+    const daysInMonth = moment(`${year}-${monthNumber + 1}`, "YYYY-MM").daysInMonth()
+    const days: Day[] = [];
     for (let index = 0; index < daysInMonth; index++) {
-      const curDay = new Date(yearNumber, monthNumber, (index + 1))
-      month.push({
-        kw: moment(curDay).week(),
-        day: curDay.getDate(),
-        date: curDay,
-        isWeekendDay: business.isWeekendDay(moment(curDay)),
-        isHoliday: moment(curDay).isHoliday([])['allStates']
-      })
+      const currentDay = new Date(year, monthNumber, (index + 1))
+      days.push(this.generateDay(currentDay))
     }
-    return month
+    return {
+      name: this.monthNames[monthNumber],
+      year: year,
+      days: days
+    }
+  }
+
+  generateDay(currentDay): Day {
+    return {
+      kw: moment(currentDay).week(),
+      day: currentDay.getDate(),
+      date: currentDay,
+      isWeekendDay: business.isWeekendDay(moment(currentDay)),
+      isHoliday: moment(currentDay).isHoliday([])['allStates']
+    }
   }
 }
