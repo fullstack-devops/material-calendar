@@ -8,19 +8,13 @@ interface Config {
   panelColor?: string;
   holidayBgColor?: string;
   holidayColor?: string;
-}
-interface Display {
-  year: number;
-  month: number;
-  before?: number;
-  after?: number;
   displayYear: boolean;
   switches: boolean;
 }
 
 @Component({
   selector: 'calendar-panels',
-  inputs: ['placeholderDay', 'config', 'display'],
+  inputs: ['mode', 'placeholderDay', 'config', 'year', 'month', 'monthsBefore', 'monthsAfter'],
   templateUrl: './calendar-panels.component.html',
   styleUrls: ['./calendar-panels.component.scss']
 })
@@ -32,14 +26,18 @@ export class CalendarPanelsComponent implements OnInit {
     panelBgColor: '#00677f',
     textColor: 'white',
     holidayBgColor: 'rgb(0, 103, 127)',
-    holidayColor: 'rgb(0, 103, 127)'
+    holidayColor: 'rgb(0, 103, 127)',
+    displayYear: false,
+    switches: false
   }
-  display: Display = {
-    year: 2020,
-    month: 3,
-    displayYear: true,
-    switches: true
-  }
+  mode = 'monthly' // monthly | annual
+
+  year = new Date().getFullYear()
+  month = new Date().getUTCMonth()
+  monthsBefore = 0
+  monthsAfter = 0
+  calendar = null
+  weekdayNames = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 
 
   @HostBinding("style.--panel-color")
@@ -56,15 +54,19 @@ export class CalendarPanelsComponent implements OnInit {
   private panelColorHoliday = this.config.holidayColor;
 
   constructor(private calendarService: CalendarService) {
-    this.panelBgColor = this.config.panelBgColor
+    this.panelBgColor = this.config.panelBgColor;
+    console.log(this.mode)
+    if (this.mode === 'annual') {
+      this.calendar = this.calendarService.generateMatrix(null, this.year)
+    } else if (this.mode === 'monthly') {
+      console.log(this.month)
+      this.calendar = this.calendarService.generateMatrix(null, this.year, this.month, this.monthsBefore, this.monthsAfter)
+    }
   }
-
-  calendar = null
-  weekdayNames = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 
   ngOnInit() {
     console.log(this.placeholderDay)
-    this.calendar = this.calendarService.generateMatrix(2020, this.placeholderDay)
+    this.calendar = this.calendarService.generateMatrix(null, 2020)
     console.log(this.calendar)
     this.isLoading = false
   }
