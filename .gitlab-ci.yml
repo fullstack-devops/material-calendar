@@ -57,5 +57,5 @@ build-image:
     - npm publish
     - rm .npmrc
   tags:
-    - docker-build
+    - node
   
