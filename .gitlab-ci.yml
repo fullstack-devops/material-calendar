@@ -3,23 +3,23 @@ stages:
     #- test
     - npm-publish
   
-  variables:
-    VERSION: $(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
-  
-  build_app:
-    stage: build
-    before_script:
-      - npm install
-    script:
-      - cd projects/material-calendar/ && npm install
-      - ng build material-calendar --prod
-    artifacts:
-      expire_in: 1 day
-      paths:
-        - dist/
-    tags:
-      - node
-  
+variables:
+  VERSION: $(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
+
+build_app:
+  stage: build
+  before_script:
+    - npm install
+  script:
+    - cd projects/material-calendar/ && npm install
+    - ng build material-calendar --prod
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist/
+  tags:
+    - node
+
   #test:karma:chrome:
   #  stage: test
   #  allow_failure: false
@@ -48,14 +48,14 @@ stages:
   #  tags:
   #    - ng-test
   
-  build-image:
-    stage: npm-publish
-    script:
-      - touch .npmrc
-      - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
-      - cd dist/material-calendar
-      - npm publish
-      - rm .npmrc
-    tags:
-      - docker-build
+build-image:
+  stage: npm-publish
+  script:
+    - touch .npmrc
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
+    - cd dist/material-calendar
+    - npm publish
+    - rm .npmrc
+  tags:
+    - docker-build
   
