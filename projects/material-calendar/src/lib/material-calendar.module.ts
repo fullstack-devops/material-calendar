@@ -16,4 +16,4 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   exports: [CalendarPanelsComponent]
 })
-export class AngularCalendarModule { }
+export class MaterialCalendarModule { }
