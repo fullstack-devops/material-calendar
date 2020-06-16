@@ -16,13 +16,9 @@
       "dom"
     ],
     "paths": {
-      "angular-calender": [
-        "dist/angular-calender/angular-calender",
-        "dist/angular-calender"
-      ],
-      "angular-calendar": [
-        "dist/angular-calendar/angular-calendar",
-        "dist/angular-calendar"
+      "material-calendar": [
+        "dist/material-calendar/material-calendar",
+        "dist/material-calendar"
       ]
     }
   },

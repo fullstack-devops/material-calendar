@@ -1,3 +1,4 @@
 <button mat-button (click)="placeholder=!placeholder">switch placeholder</button>
+<button mat-button (click)="switchMode()">switch mode: {{mode}}</button>
 <p>{{placeholder}}</p>
-<calendar-panels [placeholderDay]="placeholder" ></calendar-panels><!-- [config]="calendarConfig" -->
+<calendar-panels [mode]="mode" [placeholderDay]="placeholder" ></calendar-panels><!-- [config]="calendarConfig" -->
