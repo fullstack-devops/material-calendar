@@ -1,0 +1,32 @@
+{
+  "name": "material-calendar",
+  "version": "0.0.2",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^9.1.9",
+    "@angular/core": "^9.1.9",
+    "moment": "^2.26.0"
+  },
+  "dependencies": {
+    "@angular/cdk": "^9.2.4",
+    "@angular/material": "^9.2.4",
+    "moment": "^2.26.0",
+    "moment-business": "^3.0.1",
+    "moment-feiertage": "^2.0.2",
+    "tslib": "^1.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.e-netsupport.de/e-netsupport/material-calendar.git"
+  },
+  "homepage": "https://gitlab.e-netsupport.de/e-netsupport/material-calendar.git",
+  "description": "CLI tool for Angular",
+  "engines": {
+    "node": ">= 10.13.0",
+    "npm": ">= 6.11.0",
+    "yarn": ">= 1.13.0"
+  },
+  "bugs": {
+    "url": "https://gitlab.e-netsupport.de/e-netsupport/material-calendar/issues"
+  }
+}

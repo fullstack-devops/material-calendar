@@ -2,22 +2,7 @@ import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import * as moment from 'moment-feiertage';
 import business from 'moment-business';
 import 'moment/min/locales';
-
-interface Calendar {
-  year: number;
-  months: Month[]
-}
-interface Month {
-  name: string;
-  days: Day[]
-}
-interface Day {
-  day: number;
-  date: Date;
-  kw: number;
-  isWeekendDay: boolean;
-  isHoliday: boolean;
-}
+import { Calendar, Month, Day } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -26,47 +11,54 @@ export class CalendarService {
 
   constructor(@Inject(LOCALE_ID) public locale: string) { }
 
-  longMonths = [1, 3, 5, 7, 8, 10, 12]
-
   momentLoc = moment.updateLocale(this.locale.substr(0, 2), {
     week: {
       dow: 1, // First day of week is Monday
       doy: 4  // First week of year must contain 4 January (7 + 1 - 4)
     }
   });
-
-  weekdayNames = this.momentLoc.weekdaysShort().push(this.momentLoc.weekdaysShort().shift())
-
-  // weekdayNames = this.weekdaysShort.push(this.weekdaysShort.shift());
   monthNames = this.momentLoc.monthsShort()
 
-
   /**
-  * @param {Calendar} calendar     Custom data, (optinal)
-  * @param {Number}   year         Gerarate calender for one year, (optinal)
-  * @param {Number}   currMonth    current selected month, (optinal)
-  * @param {Number}   monthsBefore months before the selected month, (optinal) default 0
-  * @param {Number}   monthsAfter  months after the selected month, (optinal) default 0
+   * @param {Calendar} calendar         Custom data, (optinal)
+   * @param {Number}   year             Gerarate calender for one year, (optinal)
+   * @param {Number}   currMonth        current selected month, (optinal)
+   * @param {Number}   monthsBefore     months before the selected month, (optinal) default 0
+   * @param {Number}   monthsAfter      months after the selected month, (optinal) default 0
   */
-  generateMatrix(calendar?: Calendar, year?: number, currMonth?: number, monthsBefore?: number, monthsAfter?: number) {
-    // is a current month selected?
-    let cal = calendar;
-    if (currMonth > 0) {
-      const months: Month[] = []
-      months.push(this.generateMonth(currMonth, year))
-      if (!calendar) {
+  generateMatrix(calendarWeek: boolean, calendar?: Calendar, year?: number, currMonth?: number, monthsBefore?: number, monthsAfter?: number) {
+    let cal;
+    // Custom calendar data?
+    if (calendar != undefined || calendar != null) {
+      console.log('Custom Calendar!!')
+      cal = calendar
+    } else {
+      // Standard calendar
+      if ((currMonth + 1) > 0) {
+        const months: Month[] = []
+        months.push(this.generateMonth(currMonth, year))
+        for (let index = 0; index < monthsBefore; index++) {
+          const calculatedMonth = currMonth - monthsBefore + index
+          const actualYear = (calculatedMonth + 1 < 1) ? year - 1 : year
+          const actualMonth = (calculatedMonth + 1 < 1) ? 12 + calculatedMonth : calculatedMonth
+          months.splice(index, 0, this.generateMonth(actualMonth, actualYear))
+        }
+        for (let index = 0; index < monthsAfter; index++) {
+          const calculatedMonth = currMonth + index + 1
+          const actualYear = (calculatedMonth > 11) ? year + 1 : year
+          const actualMonth = (calculatedMonth > 11) ? calculatedMonth - 12 : calculatedMonth
+          months.push(this.generateMonth(actualMonth, actualYear))
+        }
         cal = {
           months: months,
-          year: null
+          dayNames: this.momentLoc.weekdaysShort(),
+          year: year
         }
-      }
-    } else {
-      // Custom calendar data?
-      if (!calendar) {
+      } else {
+        // Calendar is a full year
         cal = this.generateCal(year)
       }
     }
-    console.log(cal)
 
     cal.months.forEach((month, index) => {
       month.days.forEach(day => {
@@ -93,12 +85,14 @@ export class CalendarService {
         render.splice(render.length + 1, 0, this.makeWJObjekt(nextMonthDay, 'placeholderDay', i));
       }
       // Kalenderwochen
-      render.splice(0, 0, this.makeWJObjekt(render[0], "kw"));
-      render.splice(8, 0, this.makeWJObjekt(render[8], "kw"));
-      render.splice(16, 0, this.makeWJObjekt(render[16], "kw"));
-      render.splice(24, 0, this.makeWJObjekt(render[24], "kw"));
-      render.splice(32, 0, this.makeWJObjekt(render[32], "kw"));
-      render.splice(40, 0, this.makeWJObjekt(render[40], "kw"));
+      if (calendarWeek) {
+        render.splice(0, 0, this.makeWJObjekt(render[0], "kw"));
+        render.splice(8, 0, this.makeWJObjekt(render[8], "kw"));
+        render.splice(16, 0, this.makeWJObjekt(render[16], "kw"));
+        render.splice(24, 0, this.makeWJObjekt(render[24], "kw"));
+        render.splice(32, 0, this.makeWJObjekt(render[32], "kw"));
+        render.splice(40, 0, this.makeWJObjekt(render[40], "kw"));
+      }
 
       Object.assign(month, { render: render })
       delete month.days
@@ -142,6 +136,7 @@ export class CalendarService {
     }
     return {
       year: year,
+      dayNames: this.momentLoc.weekdaysShort(),
       months: months
     }
   }
