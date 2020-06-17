@@ -1,4 +1,9 @@
 <div class="divbox" *ngIf="!isLoading">
+    <button mat-raised-button *ngIf="config.switches && mode == 'monthly'" (click)="onMonthBackward()">
+        <mat-icon>
+            navigate_before
+        </mat-icon>
+    </button>
     <div class="month mat-elevation-z8" *ngFor="let monat of calendar.months">
         <mat-grid-list cols="{{config.calendarWeek? 8 : 7}}" rowHeight="30px">
             <mat-grid-tile colspan="{{config.calendarWeek? 8 : 7}}" rowspan="1">
@@ -31,7 +36,9 @@
 
         </mat-grid-list>
     </div>
-    <!-- <mat-icon>
-        navigate_next
-    </mat-icon> -->
+    <button mat-raised-button  *ngIf="config.switches && mode == 'monthly'" (click)="onMonthForward()">
+        <mat-icon>
+            navigate_next
+        </mat-icon>
+    </button>
 </div>

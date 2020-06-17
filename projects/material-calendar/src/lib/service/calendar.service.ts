@@ -18,6 +18,9 @@ export class CalendarService {
     }
   });
   monthNames = this.momentLoc.monthsShort()
+  dayNamesEn = this.momentLoc.weekdaysShort()
+  dayNamesDeVor = JSON.parse(JSON.stringify(this.dayNamesEn))
+  dayNamesDe = this.dayNamesDeVor.push(this.dayNamesDeVor.shift())
 
   /**
    * @param {String}   mode             calendar mode (monthly|annual)
@@ -56,7 +59,7 @@ export class CalendarService {
         }
         cal = {
           months: months,
-          dayNames: this.momentLoc.weekdaysShort(),
+          dayNames: this.dayNamesDeVor,
           year: year
         }
       } else {
@@ -134,14 +137,13 @@ export class CalendarService {
   }
 
   generateCal(year: number): Calendar {
-    //if ()
     const months = []
     for (let index = 0; index < this.monthNames.length; index++) {
       months.push(this.generateMonth(index, year))
     }
     return {
       year: year,
-      dayNames: this.momentLoc.weekdaysShort(),
+      dayNames: this.dayNamesDeVor,
       months: months
     }
   }
