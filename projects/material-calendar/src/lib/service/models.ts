@@ -16,6 +16,7 @@ export interface CalendarConfig {
     useHolidays: boolean;
     displayYear: boolean;
     switches: boolean;
+    firstDayOfWeekMonday: boolean;
     panelBgColor?: string;
     textColor?: string;
     holidayColor?: string;
