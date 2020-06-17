@@ -51,12 +51,11 @@ build_app:
 npm-publish:
   stage: npm-publish
   script:
-    - touch .npmrc
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-    - npm set registry https://registry.npmjs.org/
+    - touch /home/node/.npmrc
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > /home/node/.npmrc
     - cd dist/material-calendar
     - npm publish
-    - rm .npmrc
+    - rm /home/node/.npmrc
   tags:
     - node
   
