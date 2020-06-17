@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MaterialCalendarModule } from 'projects/material-calendar/src/public-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { MaterialCalendarModule } from 'projects/material-calendar/src/public-ap
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialCalendarModule
   ],
   providers: [

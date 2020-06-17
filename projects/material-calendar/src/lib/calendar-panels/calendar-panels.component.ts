@@ -10,15 +10,46 @@ import { CalendarConfig } from '../service/models';
 })
 export class CalendarPanelsComponent implements OnInit {
 
-  private _mode;
+  private _mode: string;
+  private _config: CalendarConfig = {
+    panelBgColor: '#00677f', // 00677f 006105
+    autoTextColor: true,
+    textColor: '#fff',
+    useHolidays: false,
+    holidayColor: 'rgb(253, 173, 0)',
+    holidayTextColor: 'rgb(253, 173, 0)',
+    displayYear: true,
+    firstDayOfWeekMonday: true,
+    calendarWeek: true,
+    switches: false,
+  };
   private _data = null;
+  private _month = new Date().getUTCMonth();
+  private _year: number = new Date().getFullYear()
+  private _monthsBefore: number = 1;
+  private _monthsAfter: number = 1;
   calendar = null
 
   get mode(): string {
     return this._mode;
   }
+  get config(): CalendarConfig {
+    return this._config;
+  }
   get data(): any {
     return this._data;
+  }
+  get month(): number {
+    return this._month;
+  }
+  get year(): number {
+    return this._year;
+  }
+  get monthsBefore(): number {
+    return this._monthsBefore;
+  }
+  get monthsAfter(): number {
+    return this._monthsAfter;
   }
 
   @Input()
@@ -30,24 +61,34 @@ export class CalendarPanelsComponent implements OnInit {
   set data(data: any) {
     this._data = data;
     this.generateX()
-  };
+  }
+  @Input()
+  set month(data: number) {
+    this._month = data;
+    this.generateX()
+  }
+  @Input()
+  set config(data: CalendarConfig) {
+    this._config = data;
+    this.generateX()
+  }
+  @Input() 
+  set year(data: number){
+    this._year = data;
+    this.generateX()
+  }
+  @Input() 
+  set monthsBefore(data: number){
+    this._monthsBefore = data;
+    this.generateX()
+  }
+  @Input() 
+  set monthsAfter(data: number){
+    this._monthsAfter = data;
+    this.generateX()
+  }
 
   @Input() placeholderDay: boolean = false;
-  @Input() year: number = new Date().getFullYear()
-  @Input() month: number = new Date().getUTCMonth();
-  @Input() monthsBefore: number = 1;
-  @Input() monthsAfter: number = 1;
-  @Input() config: CalendarConfig = {
-    panelBgColor: '#00677f', // 00677f 006105
-    autoTextColor: true,
-    textColor: '#fff',
-    useHolidays: false,
-    holidayColor: 'rgb(253, 173, 0)',
-    holidayTextColor: 'rgb(253, 173, 0)',
-    displayYear: true,
-    calendarWeek: true,
-    switches: false,
-  }
 
   isLoading = true
 
@@ -88,14 +129,31 @@ export class CalendarPanelsComponent implements OnInit {
     this.isLoading = false
   }
 
+  onMonthForward() {
+    if (this.month >= 11) {
+      this._year = this.year + 1
+      this.month = 0
+    } else {
+      this.month = this.month + 1
+    }
+  }
+
+  onMonthBackward() {
+    if (this.month <= 0) {
+      this._year = this.year - 1
+      this.month = 11
+    } else {
+      this.month = this.month - 1
+    }
+  }
+
   generateX() {
     if (this.mode === 'annual') {
       this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year)
     } else if (this.mode === 'monthly') {
-      console.log(this.month)
       this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year, this.month, this.monthsBefore, this.monthsAfter)
     }
-    console.log(this.calendar)
+    // console.log(this.calendar)
   }
 
   lightOrDarkTextColor(color) {

@@ -19,9 +19,10 @@ export class AppComponent {
     useHolidays: false,
     holidayColor: 'rgb(253, 173, 0)',
     holidayTextColor: 'rgb(253, 173, 0)',
-    displayYear: true,
-    calendarWeek: true,
-    switches: false,
+    displayYear: false,
+    firstDayOfWeekMonday: true,
+    calendarWeek: false,
+    switches: true,
   }
 
   switchMode() {
