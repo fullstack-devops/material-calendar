@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalendarConfig } from 'projects/material-calendar/src/lib/service/models';
+import { CalendarConfig } from 'projects/material-calendar/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,9 @@ import { CalendarConfig } from 'projects/material-calendar/src/lib/service/model
 export class AppComponent {
   title = 'my-first-app';
 
-  placeholder = false
+  placeholder = false // boolean
+  mode = 'monthly' // 'annual' | 'monthly'
+
   calendarConfig: CalendarConfig = {
     panelBgColor: '#00677f', // 00677f 006105
     autoTextColor: true,
@@ -21,7 +23,6 @@ export class AppComponent {
     calendarWeek: true,
     switches: false,
   }
-  mode = 'monthly'
 
   switchMode() {
     this.mode = (this.mode === 'monthly') ? 'annual' : 'monthly'
