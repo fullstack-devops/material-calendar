@@ -48,11 +48,11 @@ build_app:
   #  tags:
   #    - ng-test
   
-build-image:
+npm-publish:
   stage: npm-publish
   script:
     - touch .npmrc
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}"
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
     - cd dist/material-calendar
     - npm publish
     - rm .npmrc

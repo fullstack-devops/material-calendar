@@ -14,7 +14,7 @@ export class CalendarPanelsComponent implements OnInit {
   private _data = null;
   calendar = null
 
-  get mode(): String {
+  get mode(): string {
     return this._mode;
   }
   get data(): any {
@@ -22,7 +22,7 @@ export class CalendarPanelsComponent implements OnInit {
   }
 
   @Input()
-  set mode(val: String) {
+  set mode(val: string) {
     this._mode = val;
     this.generateX()
   }
@@ -90,10 +90,10 @@ export class CalendarPanelsComponent implements OnInit {
 
   generateX() {
     if (this.mode === 'annual') {
-      this.calendar = this.calendarService.generateMatrix(this.config.calendarWeek, null, this.year)
+      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year)
     } else if (this.mode === 'monthly') {
       console.log(this.month)
-      this.calendar = this.calendarService.generateMatrix(this.config.calendarWeek, null, this.year, this.month, this.monthsBefore, this.monthsAfter)
+      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year, this.month, this.monthsBefore, this.monthsAfter)
     }
     console.log(this.calendar)
   }
