@@ -53,6 +53,7 @@ npm-publish:
   script:
     - touch .npmrc
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+    - npm set registry https://registry.npmjs.org/
     - cd dist/material-calendar
     - npm publish
     - rm .npmrc
