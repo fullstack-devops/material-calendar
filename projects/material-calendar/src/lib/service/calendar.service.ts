@@ -47,13 +47,13 @@ export class CalendarService {
         months.push(this.generateMonth(currMonth, year))
         for (let index = 0; index < monthsBefore; index++) {
           const calculatedMonth = currMonth - monthsBefore + index
-          const actualYear = (calculatedMonth + 1 < 1) ? year-- : year
+          const actualYear = (calculatedMonth + 1 < 1) ? year - 1 : year
           const actualMonth = (calculatedMonth + 1 < 1) ? 12 + calculatedMonth : calculatedMonth
           months.splice(index, 0, this.generateMonth(actualMonth, actualYear))
         }
         for (let index = 0; index < monthsAfter; index++) {
           const calculatedMonth = currMonth + index + 1
-          const actualYear = (calculatedMonth > 11) ? year++ : year
+          const actualYear = (calculatedMonth > 11) ? year + 1 : year
           const actualMonth = (calculatedMonth > 11) ? calculatedMonth - 12 : calculatedMonth
           months.push(this.generateMonth(actualMonth, actualYear))
         }
