@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, Output } from '@angular/core';
 import { CalendarService } from '../service/calendar.service';
 import * as pSBC from '../service/pSBC';
 import { CalendarConfig } from '../service/models';
@@ -20,6 +20,7 @@ export class CalendarPanelsComponent implements OnInit {
     holidayTextColor: 'rgb(253, 173, 0)',
     displayYear: true,
     firstDayOfWeekMonday: true,
+    todayColor: '#fff',
     calendarWeek: true,
     switches: false,
   };
@@ -28,7 +29,9 @@ export class CalendarPanelsComponent implements OnInit {
   private _year: number = new Date().getFullYear()
   private _monthsBefore: number = 1;
   private _monthsAfter: number = 1;
+
   calendar = null
+  today = new Date().setHours(0, 0, 0, 0)
 
   get mode(): string {
     return this._mode;
@@ -65,6 +68,7 @@ export class CalendarPanelsComponent implements OnInit {
   @Input()
   set month(data: number) {
     this._month = data;
+    this.monthOverrride = false
     this.generateX()
   }
   @Input()
@@ -72,18 +76,18 @@ export class CalendarPanelsComponent implements OnInit {
     this._config = data;
     this.generateX()
   }
-  @Input() 
-  set year(data: number){
+  @Input()
+  set year(data: number) {
     this._year = data;
     this.generateX()
   }
-  @Input() 
-  set monthsBefore(data: number){
+  @Input()
+  set monthsBefore(data: number) {
     this._monthsBefore = data;
     this.generateX()
   }
-  @Input() 
-  set monthsAfter(data: number){
+  @Input()
+  set monthsAfter(data: number) {
     this._monthsAfter = data;
     this.generateX()
   }
@@ -91,6 +95,7 @@ export class CalendarPanelsComponent implements OnInit {
   @Input() placeholderDay: boolean = false;
 
   isLoading = true
+  monthOverrride = false
 
   @HostBinding("style.--panel-color")
   panelBgColor = this.config.panelBgColor;
@@ -104,6 +109,8 @@ export class CalendarPanelsComponent implements OnInit {
   panelBgColorHoliday = this.config.holidayColor;
   @HostBinding("style.--text-color-holiday")
   panelColorHoliday = this.lightOrDarkTextColor(this.config.holidayColor);
+  @HostBinding("style.--today-color")
+  todayColor = this.config.todayColor;
 
   constructor(private calendarService: CalendarService) {
     // colors
@@ -130,28 +137,34 @@ export class CalendarPanelsComponent implements OnInit {
   }
 
   onMonthForward() {
-    if (this.month >= 11) {
-      this._year = this.year + 1
-      this.month = 0
+    this.monthOverrride = true
+    if (this.month >= 11 || this._month >= 11) {
+      this._year = parseInt(this.year.toString(), 10) + 1
+      this._month = 0
     } else {
-      this.month = this.month + 1
+      this._month = parseInt(this._month.toString(), 10) + 1
     }
+    this.generateX()
   }
 
   onMonthBackward() {
-    if (this.month <= 0) {
-      this._year = this.year - 1
-      this.month = 11
+    this.monthOverrride = true
+    if (this.month <= 0 || this._month <= 0) {
+      this._year = parseInt(this.year.toString(), 10) - 1
+      this._month = 11
     } else {
-      this.month = this.month - 1
+      this._month = parseInt(this._month.toString(), 10) - 1
     }
+    this.generateX()
   }
 
   generateX() {
+    const usedYear = this.monthOverrride ? this._year : this.year
+    const usedMonth = this.monthOverrride ? this._month : this.month
     if (this.mode === 'annual') {
       this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year)
     } else if (this.mode === 'monthly') {
-      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year, this.month, this.monthsBefore, this.monthsAfter)
+      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, usedYear, usedMonth, this.monthsBefore, this.monthsAfter)
     }
     // console.log(this.calendar)
   }
