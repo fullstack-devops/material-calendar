@@ -7,6 +7,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 }
 
 .month {
@@ -27,9 +28,9 @@ mat-grid-tile {
     color: var(--text-color);
 }
 
-.highlight {
+.today {
     box-sizing: border-box;
-    border: 2px solid rgba(0, 103, 127, 0.1);
+    border: 2px solid var(--today-color);
 }
 
 .Weekend {
@@ -56,4 +57,12 @@ mat-grid-tile {
 }
 .placeholderFalse a {
     display: none;
+}
+
+.slideButton {
+    padding: 0;
+}
+
+.slideButton span {
+    font-size: 60px;
 }

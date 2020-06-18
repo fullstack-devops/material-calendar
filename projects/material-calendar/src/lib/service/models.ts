@@ -20,6 +20,7 @@ export interface CalendarConfig {
     panelBgColor?: string;
     textColor?: string;
     holidayColor?: string;
+    todayColor?: string;
     holidayTextColor?: string;
 }
 

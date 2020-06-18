@@ -1,13 +1,34 @@
 <div class="divbox" *ngIf="!isLoading">
-    <button mat-raised-button *ngIf="config.switches && mode == 'monthly'" (click)="onMonthBackward()">
-        <mat-icon>
-            navigate_before
-        </mat-icon>
+    <button mat-flat-button class="slideButton"
+        *ngIf="config.switches && mode == 'monthly' && monthsBefore != 0 && monthsAfter != 0"
+        (click)="onMonthBackward()">
+        <span class="material-icons">
+            keyboard_arrow_left
+        </span>
     </button>
     <div class="month mat-elevation-z8" *ngFor="let monat of calendar.months">
         <mat-grid-list cols="{{config.calendarWeek? 8 : 7}}" rowHeight="30px">
             <mat-grid-tile colspan="{{config.calendarWeek? 8 : 7}}" rowspan="1">
-                <a>{{monat.name}}</a> <a style="margin-left: 5px;" *ngIf="config.displayYear"> {{monat.year}}</a>
+                <button mat-icon-button
+                    *ngIf="config.switches && mode == 'monthly' && monthsBefore == 0 && monthsAfter == 0"
+                    (click)="onMonthBackward()">
+                    <span class="material-icons">
+                        keyboard_arrow_left
+                    </span>
+                </button>
+                <span style="flex: 1 1 auto;"></span>
+                <div>
+                    <a>{{monat.name}}</a>
+                    <a style="margin-left: 5px;" *ngIf="config.displayYear">{{monat.year}}</a>
+                </div>
+                <span style="flex: 1 1 auto;"></span>
+                <button mat-icon-button
+                    *ngIf="config.switches && mode == 'monthly' && monthsBefore == 0 && monthsAfter == 0"
+                    (click)="onMonthForward()">
+                    <span class="material-icons">
+                        keyboard_arrow_right
+                    </span>
+                </button>
             </mat-grid-tile>
             <mat-grid-tile *ngIf="config.calendarWeek" colspan="1" rowspan="1"></mat-grid-tile>
             <mat-grid-tile class="weekdayPlaceholder" *ngFor="let dayNames of calendar.dayNames" colspan="1"
@@ -23,12 +44,12 @@
                 <mat-grid-tile *ngIf="day.type === 'leer'" colspan="1" rowspan="1"></mat-grid-tile>
 
                 <mat-grid-tile *ngIf="day.type === 'placeholderDay'" colspan="1" rowspan="1"
-                    [ngClass]="[day.isWeekendDay? 'Weekend' : '', placeholderDay ? 'weekdayPlaceholder':'placeholderFalse', day.isHoliday? 'Holiday' : '']">
+                    [ngClass]="[day.isWeekendDay? 'Weekend' : '', placeholderDay ? 'weekdayPlaceholder':'placeholderFalse', day.isHoliday && config.useHolidays? 'Holiday' : '']">
                     <a>{{day.day}}</a>
                 </mat-grid-tile>
 
                 <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test"
-                    [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '']">
+                    [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '', day.date.setHours(0, 0, 0, 0) == today? 'today': '']">
                     {{day.day}}
                 </mat-grid-tile>
 
@@ -36,9 +57,11 @@
 
         </mat-grid-list>
     </div>
-    <button mat-raised-button  *ngIf="config.switches && mode == 'monthly'" (click)="onMonthForward()">
-        <mat-icon>
-            navigate_next
-        </mat-icon>
+    <button mat-flat-button class="slideButton"
+        *ngIf="config.switches && mode == 'monthly' && monthsBefore != 0 && monthsAfter != 0"
+        (click)="onMonthForward()">
+        <span class="material-icons">
+            keyboard_arrow_right
+        </span>
     </button>
 </div>
