@@ -6,8 +6,8 @@
             keyboard_arrow_left
         </span>
     </button>
-    <div class="month mat-elevation-z8" *ngFor="let monat of calendar.months">
-        <mat-grid-list cols="{{config.calendarWeek? 8 : 7}}" rowHeight="30px">
+    <div class="month mat-elevation-z8" *ngFor="let monat of calendar.months" [style.width]="panelWidth">
+        <mat-grid-list cols="{{config.calendarWeek? 8 : 7}}" rowHeight="1:1">
             <mat-grid-tile colspan="{{config.calendarWeek? 8 : 7}}" rowspan="1">
                 <button mat-icon-button
                     *ngIf="config.switches && mode == 'monthly' && (monthsBefore == 0 && monthsAfter == 0)"
@@ -16,12 +16,10 @@
                         keyboard_arrow_left
                     </span>
                 </button>
-                <span style="flex: 1 1 auto;"></span>
-                <div>
-                    <a>{{monat.name}}</a>
-                    <a style="margin-left: 5px;" *ngIf="config.displayYear">{{monat.year}}</a>
-                </div>
-                <span style="flex: 1 1 auto;"></span>
+
+                <h3 class="displayMonthName" *ngIf="!config.displayYear">{{monat.name}}</h3>
+                <h3 class="displayMonthName" *ngIf="config.displayYear">{{monat.name}} {{monat.year}}</h3>
+
                 <button mat-icon-button
                     *ngIf="config.switches && mode == 'monthly' && (monthsBefore == 0 && monthsAfter == 0)"
                     (click)="onMonthForward()">
@@ -41,16 +39,16 @@
                     {{day.kw}}
                 </mat-grid-tile>
 
-                <mat-grid-tile *ngIf="day.type === 'leer'" colspan="1" rowspan="1"></mat-grid-tile>
-
-                <mat-grid-tile *ngIf="day.type === 'placeholderDay'" colspan="1" rowspan="1"
+                <mat-grid-tile *ngIf="day.type === 'placeholderDay'" colspan="1" rowspan="1" class="date"
                     [ngClass]="[day.isWeekendDay? 'Weekend' : '', placeholderDay ? 'weekdayPlaceholder':'placeholderFalse', day.isHoliday && config.useHolidays? 'Holiday' : '']">
                     <a>{{day.day}}</a>
                 </mat-grid-tile>
 
-                <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test"
-                    [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '', day.date.setHours(0, 0, 0, 0) == today? 'today': '']">
-                    {{day.day}}
+                <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test" class="date"
+                    [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '']">
+                    <div [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
+                        <a>{{day.day}}</a>
+                    </div>
                 </mat-grid-tile>
 
             </ng-container>

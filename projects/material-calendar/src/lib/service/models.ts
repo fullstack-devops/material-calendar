@@ -22,7 +22,10 @@ export interface CalendarConfig {
     holidayColor?: string;
     todayColor?: string;
     holidayTextColor?: string;
+    panelWidth?: string;
 }
+
+export class CalendarConfig { }
 
 export interface Calendar {
     year: number;
