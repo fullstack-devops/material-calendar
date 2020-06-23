@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CalendarConfig } from 'projects/material-calendar/src/public-api';
 
 @Component({
@@ -6,7 +6,7 @@ import { CalendarConfig } from 'projects/material-calendar/src/public-api';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Material Calendar Demo';
 
   placeholder = false // boolean
@@ -25,8 +25,13 @@ export class AppComponent {
     holidayTextColor: 'rgb(253, 173, 0)',
     displayYear: true,
     firstDayOfWeekMonday: true,
-    calendarWeek: false,
+    calendarWeek: true,
+    todayColor: '#fff',
+    panelWidth: '90%',
     switches: true,
+  }
+
+  ngOnInit() {
   }
 
   switchMode() {
