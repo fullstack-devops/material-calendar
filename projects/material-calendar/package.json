@@ -1,6 +1,6 @@
 {
   "name": "material-calendar",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^9.1.9",
@@ -17,9 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.e-netsupport.de/e-netsupport/material-calendar.git"
+    "url": "https://github.com/E-NetSupport/material-calendar.git"
   },
-  "homepage": "https://gitlab.e-netsupport.de/e-netsupport/material-calendar.git",
+  "homepage": "https://github.com/E-NetSupport/material-calendar",
   "description": "CLI tool for Angular",
   "engines": {
     "node": ">= 10.13.0",
@@ -27,6 +27,6 @@
     "yarn": ">= 1.13.0"
   },
   "bugs": {
-    "url": "https://gitlab.e-netsupport.de/e-netsupport/material-calendar/issues"
+    "url": "https://github.com/E-NetSupport/material-calendar/issues"
   }
 }

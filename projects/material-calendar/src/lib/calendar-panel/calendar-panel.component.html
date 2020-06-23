@@ -1,0 +1,44 @@
+<div class="month mat-elevation-z8" *ngFor="let monat of calendar.months">
+    <mat-grid-list cols="{{config.calendarWeek? 8 : 7}}" rowHeight="1:1">
+        <mat-grid-tile colspan="{{config.calendarWeek? 8 : 7}}" rowspan="1">
+            <button mat-icon-button (click)="onMonthBackward()">
+                <span class="material-icons">
+                    keyboard_arrow_left
+                </span>
+            </button>
+
+            <h3 class="displayMonthName" *ngIf="!config.displayYear">{{monat.name}}</h3>
+            <h3 class="displayMonthName" *ngIf="config.displayYear">{{monat.name}} {{monat.year}}</h3>
+
+            <button mat-icon-button (click)="onMonthForward()">
+                <span class="material-icons">
+                    keyboard_arrow_right
+                </span>
+            </button>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="config.calendarWeek" colspan="1" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile class="weekdayPlaceholder" *ngFor="let dayNames of calendar.dayNames" colspan="1" rowspan="1">
+            {{dayNames}}
+        </mat-grid-tile>
+
+        <ng-container *ngFor="let day of monat.render">
+            <mat-grid-tile *ngIf="day.type === 'kw'" colspan="1" rowspan="1" class="KW">
+                {{day.kw}}
+            </mat-grid-tile>
+
+            <mat-grid-tile *ngIf="day.type === 'placeholderDay'" colspan="1" rowspan="1" class="date"
+                [ngClass]="[day.isWeekendDay? 'Weekend' : '', placeholderDay ? 'weekdayPlaceholder':'placeholderFalse', day.isHoliday && config.useHolidays? 'Holiday' : '']">
+                <a>{{day.day}}</a>
+            </mat-grid-tile>
+
+            <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test" class="date"
+                [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '']">
+                <div [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
+                    <a>{{day.day}}</a>
+                </div>
+            </mat-grid-tile>
+
+        </ng-container>
+
+    </mat-grid-list>
+</div>

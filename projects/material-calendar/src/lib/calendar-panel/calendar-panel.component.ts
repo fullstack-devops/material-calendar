@@ -5,13 +5,12 @@ import { CalendarConfig } from '../service/models';
 import { SharedFunctions } from '../service/shared-functions';
 
 @Component({
-  selector: 'calendar-panels',
-  templateUrl: './calendar-panels.component.html',
-  styleUrls: ['./calendar-panels.component.scss']
+  selector: 'calendar-panel',
+  templateUrl: './calendar-panel.component.html',
+  styleUrls: ['./calendar-panel.component.scss']
 })
-export class CalendarPanelsComponent implements OnInit {
+export class CalendarPanelComponent implements OnInit {
 
-  private _mode: string;
   private _config: CalendarConfig = {
     panelBgColor: '#00677f', // 00677f 006105
     autoTextColor: true,
@@ -29,15 +28,10 @@ export class CalendarPanelsComponent implements OnInit {
   private _data = null;
   private _month = new Date().getUTCMonth();
   private _year: number = new Date().getFullYear()
-  private _monthsBefore: number = 1;
-  private _monthsAfter: number = 1;
 
   calendar = null
   today = new Date().setHours(0, 0, 0, 0)
 
-  get mode(): string {
-    return this._mode;
-  }
   get config(): CalendarConfig {
     return this._config;
   }
@@ -50,18 +44,7 @@ export class CalendarPanelsComponent implements OnInit {
   get year(): number {
     return this._year;
   }
-  get monthsBefore(): number {
-    return this._monthsBefore;
-  }
-  get monthsAfter(): number {
-    return this._monthsAfter;
-  }
 
-  @Input()
-  set mode(val: string) {
-    this._mode = val;
-    this.generateX()
-  }
   @Input()
   set dataSource(data: any) {
     this._data = data;
@@ -84,17 +67,6 @@ export class CalendarPanelsComponent implements OnInit {
     this._year = data;
     this.generateX()
   }
-  @Input()
-  set monthsBefore(data: number) {
-    this._monthsBefore = data;
-    this.generateX()
-  }
-  @Input()
-  set monthsAfter(data: number) {
-    this._monthsAfter = data;
-    this.generateX()
-  }
-
   @Input() placeholderDay: boolean = false;
 
   isLoading = true
@@ -121,9 +93,6 @@ export class CalendarPanelsComponent implements OnInit {
     private sharedFunctions: SharedFunctions) { }
 
   ngOnInit() {
-    if (this.monthsAfter > 10 || this.monthsBefore > 10) {
-      console.error('The monthsBefore and monthsAfter should not be greater than 10, this could result in errors!')
-    }
     this.isLoading = false
   }
 
@@ -176,11 +145,7 @@ export class CalendarPanelsComponent implements OnInit {
     this.setCssVars()
     const usedYear = this.monthOverrride ? this._year : this.year
     const usedMonth = this.monthOverrride ? this._month : this.month
-    if (this.mode === 'annual') {
-      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year)
-    } else if (this.mode === 'monthly') {
-      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, usedYear, usedMonth, this.monthsBefore, this.monthsAfter)
-    }
-    // console.log(this.calendar)
+    this.calendar = this.calendarService.generateMatrix('monthly', this.config.calendarWeek, null, usedYear, usedMonth, 0, 0)
   }
+
 }
