@@ -31,7 +31,14 @@ export class AppComponent implements OnInit {
     switches: true,
   }
 
+  constructor() {
+  }
+
   ngOnInit() {
+  }
+
+  testMethod(event) {
+    console.log(event)
   }
 
   switchMode() {
