@@ -31,8 +31,10 @@
 </div>
 
 <calendar-panels [mode]="mode" [placeholderDay]="placeholder" year="2020" month="5" [monthsBefore]="monthsBefore"
-    [monthsAfter]="monthsAfter" [config]="calendarConfig">
+    [monthsAfter]="monthsAfter" [config]="calendarConfig" (clickDate)="testMethod($event)">
 </calendar-panels>
 
-<!-- <calendar-panel [placeholderDay]="placeholder" year="2020" month="5" [config]="calendarConfig">
-</calendar-panel> -->
+<!-- <div style="width: 600px;">
+    <calendar-panel [placeholderDay]="placeholder" year="2020" month="5" [config]="calendarConfig" (clickDate)="testMethod($event)">
+    </calendar-panel>
+</div> -->

@@ -33,7 +33,7 @@
 
             <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test" class="date"
                 [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '']">
-                <div [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
+                <div (click)="onClick(day)" [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
                     <a>{{day.day}}</a>
                 </div>
             </mat-grid-tile>
