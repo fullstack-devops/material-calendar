@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, Output } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, Output, EventEmitter } from '@angular/core';
 import { CalendarService } from '../service/calendar.service';
 import * as pSBC from '../service/pSBC';
 import { CalendarConfig } from '../service/models';
@@ -88,6 +88,12 @@ export class CalendarPanelComponent implements OnInit {
   @HostBinding("style.--today-color")
   todayColor;
   panelWidth = '100%';
+
+  @Output() public clickDate = new EventEmitter<Object>();
+  
+  onClick(event){
+    this.clickDate.emit(event);
+  }
 
   constructor(private calendarService: CalendarService,
     private sharedFunctions: SharedFunctions) { }
