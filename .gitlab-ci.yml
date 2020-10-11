@@ -51,6 +51,7 @@ build_app:
 npm-publish:
   stage: npm-publish
   script:
+    - ls -a
     - touch /home/node/.npmrc
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > /home/node/.npmrc
     - cat /home/node/.npmrc
