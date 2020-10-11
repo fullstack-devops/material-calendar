@@ -53,6 +53,7 @@ npm-publish:
   script:
     - ls -a
     - touch /home/node/.npmrc
+    - curl -I www.google.de
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > /home/node/.npmrc
     - cat /home/node/.npmrc
     - cd dist/material-calendar
