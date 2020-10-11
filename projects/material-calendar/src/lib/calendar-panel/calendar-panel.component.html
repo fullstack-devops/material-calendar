@@ -31,9 +31,9 @@
                 <a>{{day.day}}</a>
             </mat-grid-tile>
 
-            <mat-grid-tile *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test" class="date"
+            <mat-grid-tile (click)="onClick(day)" *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test" class="date"
                 [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '']">
-                <div (click)="onClick(day)" [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
+                <div [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
                     <a>{{day.day}}</a>
                 </div>
             </mat-grid-tile>

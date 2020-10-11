@@ -43,7 +43,7 @@ and you are good to go ;)
 
 >If only a one-month layout is required, the following tag can also be used:
 >``` html
-><calendar-panel [placeholderDay]="placeholder" year="2020" month="5" [config]="calendarConfig">
+><calendar-panel [placeholderDay]="placeholder" year="2020" month="5" [config]="calendarConfig" (clickDate)="yourMethod($event)">
 ></calendar-panel>
 >```
 >.
@@ -59,7 +59,8 @@ All options are shown here:
 	month="3" 
 	monthsBefore="1"
 	monthsAfter="1"
-	[config]="calendarConfig">
+	[config]="calendarConfig"
+	(clickDate)="yourMethod($event)">
 </calendar-panels>
 <!--
 	default placeholderDay = false
@@ -111,6 +112,11 @@ calendarConfig: CalendarConfig = {
 - multiselect days optional (returns the daily span)
 
 and many more...
+
+## Features
+
+- generate a nice calendar in material design
+- get a date back with the annotation "clickDate" (see example)
 
 ## Code scaffolding
 
