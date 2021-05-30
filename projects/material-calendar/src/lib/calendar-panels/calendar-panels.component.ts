@@ -13,7 +13,7 @@ export class CalendarPanelsComponent implements OnInit {
 
   private _mode: string;
   private _config: CalendarConfig = {
-    panelBgColor: '#00677f', // 00677f 006105
+    panelBgColor: '#ffffff', // 00677f 006105
     autoTextColor: true,
     textColor: '#fff',
     useHolidays: false,
@@ -21,7 +21,7 @@ export class CalendarPanelsComponent implements OnInit {
     holidayTextColor: 'rgb(253, 173, 0)',
     displayYear: true,
     firstDayOfWeekMonday: true,
-    todayColor: '#fff',
+    todayColor: '#000000',
     panelWidth: '100%',
     calendarWeek: true,
     switches: false,

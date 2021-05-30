@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   monthsAfter = 0;
 
   calendarConfig: CalendarConfig = {
-    panelBgColor: '#00677f', // 00677f 006105
+    panelBgColor: '#ffffff',
     autoTextColor: true,
     textColor: '#fff',
     useHolidays: false,
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     displayYear: true,
     firstDayOfWeekMonday: true,
     calendarWeek: true,
-    todayColor: '#fff',
+    todayColor: '#000000',
     panelWidth: '90%',
     switches: true,
   }

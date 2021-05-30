@@ -1,0 +1,40 @@
+name: Build PR
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+      - 'docs/**'
+    paths-ignore:
+      - "README.md"
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Setup awesome-ci
+        run: |
+          wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
+          chmod +x awesome-ci
+      - name: install npm packages
+        run: |
+          # Retry 3 times before the steps actually fails
+          (echo "===== NPM Install Attempt: 1 ====" && npm ci) || \
+          (echo "===== NPM Install Attempt: 2 ====" && npm ci) || \
+          (echo "===== NPM Install Attempt: 3 ====" && npm ci) || \
+          (echo "==== NPM Install Step Failed ====" && exit 1)
+      - name: package Applikation
+        run: npm run build
+      - name: Dry-Run release
+        run: ./awesome-ci createRelease -patchLevel bugfix -dry-run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

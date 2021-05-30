@@ -2,9 +2,13 @@
     <button mat-flat-button class="slideButton"
         *ngIf="config.switches && mode == 'monthly' && (monthsBefore != 0 || monthsAfter != 0)"
         (click)="onMonthBackward()">
-        <span class="material-icons">
+        <!-- <span class="material-icons">
             keyboard_arrow_left
-        </span>
+        </span> -->
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
     </button>
     <div class="month mat-elevation-z8" *ngFor="let monat of calendar.months" [style.width]="panelWidth">
         <mat-grid-list cols="{{config.calendarWeek? 8 : 7}}" rowHeight="1:1">
@@ -12,9 +16,10 @@
                 <button mat-icon-button
                     *ngIf="config.switches && mode == 'monthly' && (monthsBefore == 0 && monthsAfter == 0)"
                     (click)="onMonthBackward()">
-                    <span class="material-icons">
-                        keyboard_arrow_left
-                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                    </svg>
                 </button>
 
                 <h3 class="displayMonthName" *ngIf="!config.displayYear">{{monat.name}}</h3>
@@ -23,9 +28,11 @@
                 <button mat-icon-button
                     *ngIf="config.switches && mode == 'monthly' && (monthsBefore == 0 && monthsAfter == 0)"
                     (click)="onMonthForward()">
-                    <span class="material-icons">
-                        keyboard_arrow_right
-                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                        fill="#000000">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
                 </button>
             </mat-grid-tile>
             <mat-grid-tile *ngIf="config.calendarWeek" colspan="1" rowspan="1"></mat-grid-tile>
@@ -44,7 +51,8 @@
                     <a>{{day.day}}</a>
                 </mat-grid-tile>
 
-                <mat-grid-tile (click)="onClick(day)" *ngIf="day.type === 'date'" colspan="1" rowspan="1" matTooltip="test" class="date"
+                <mat-grid-tile (click)="onClick(day)" *ngIf="day.type === 'date'" colspan="1" rowspan="1"
+                    matTooltip="test" class="date"
                     [ngClass]="[day.isWeekendDay? 'Weekend' : '', day.isHoliday && config.useHolidays ? 'Holiday' : '']">
                     <div [ngClass]="day.date.setHours(0, 0, 0, 0) == today? 'today': ''">
                         <a>{{day.day}}</a>
@@ -58,8 +66,9 @@
     <button mat-flat-button class="slideButton"
         *ngIf="config.switches && mode == 'monthly' && (monthsBefore != 0 || monthsAfter != 0)"
         (click)="onMonthForward()">
-        <span class="material-icons">
-            keyboard_arrow_right
-        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
     </button>
 </div>
