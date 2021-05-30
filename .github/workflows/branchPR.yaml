@@ -18,15 +18,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          version: '14.x'
-      - name: Set up awesome-ci
+          node-version: '14.x'
+      - name: Setup awesome-ci
         run: |
           wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
           chmod +x awesome-ci
+      - name: install angular cli
+        run: npm install -g @angular/cli > /dev/null
       - name: install npm packages
-        run: npm install
+        run: npm ci
       - name: package Applikation
         run: npm run build
       - name: Dry-Run release
