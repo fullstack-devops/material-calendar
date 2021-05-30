@@ -1,32 +1,24 @@
 {
   "name": "material-calendar",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
-  "peerDependencies": {
-    "@angular/common": "^9.1.9",
-    "@angular/core": "^9.1.9",
-    "moment": "^2.26.0"
-  },
+  "peerDependencies": {},
   "dependencies": {
-    "@angular/cdk": "^9.2.4",
-    "@angular/material": "^9.2.4",
-    "moment": "^2.26.0",
-    "moment-business": "^3.0.1",
-    "moment-feiertage": "^2.0.2",
-    "tslib": "^1.10.0"
+    "moment": "^2.29.1",
+    "moment-business": "^3.0.1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/E-NetSupport/material-calendar.git"
+    "url": "https://github.com/eksrvb/material-calendar.git"
   },
-  "homepage": "https://github.com/E-NetSupport/material-calendar",
-  "description": "CLI tool for Angular",
+  "homepage": "https://github.com/eksrvb/material-calendar",
+  "description": "A material calendar for angular applications",
   "engines": {
-    "node": ">= 10.13.0",
-    "npm": ">= 6.11.0",
+    "node": ">= 12.0.0",
+    "npm": ">= 7.0.0",
     "yarn": ">= 1.13.0"
   },
   "bugs": {
-    "url": "https://github.com/E-NetSupport/material-calendar/issues"
+    "url": "https://github.com/eksrvb/material-calendar/issues"
   }
 }
