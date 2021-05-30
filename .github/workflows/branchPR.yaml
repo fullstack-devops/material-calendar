@@ -4,10 +4,10 @@ on:
   push:
     branches-ignore:
       - "main"
-      - 'docu/**'
+      - 'docs/**'
     paths-ignore:
       - "README.md"
-      - 'docu/**'
+      - 'docs/**'
       - '.github/ISSUE_TEMPLATE/**'
       - '.github/PULL_REQUEST_TEMPLATE.md'
 
@@ -18,24 +18,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-node@v1
         with:
-          go-version: 1.15
+          node-versio: '14.x'
       - name: Set up awesome-ci
         run: |
           wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
-          mv awesome-ci awesome-ci-latest
-          chmod +x awesome-ci-latest
-      - name: get next Version for project build
-        id: version_step
-        run: echo "::set-output name=new_version::$(./awesome-ci-latest getBuildInfos -format version -patchLevel bugfix)"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build
-        run: go build -v -ldflags "-X main.version=${{ steps.version_step.outputs.new_version }}"
-      - name: Test writed Version
-        run: ./awesome-ci -version
-      - name: Test writing dummy Release
-        run: ./awesome-ci createRelease -patchLevel bugfix -dry-run
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          chmod +x awesome-ci
+      - name: install npm packages
+        run: npm install
+      - name: package Applikation
+        run: npm run build

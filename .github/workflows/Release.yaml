@@ -17,24 +17,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-node@v1
         with:
-          go-version: 1.15
+          node-versio: '14.x'
       - name: Set up awesome-ci
         run: |
           wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
-          mv awesome-ci awesome-ci-latest
-          chmod +x awesome-ci-latest
-      - name: get next Version for project build
-        id: version_step
-        run: echo "::set-output name=new_version::$(./awesome-ci-latest getBuildInfos -format version)"
+          chmod +x awesome-ci
+      - name: install npm packages
+        run: npm install
+      - name: package Applikation
+        run: npm run build
+      - name: set publish config
+        shell: bash
+        run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build
-        run: go build -v -ldflags "-X main.version=${{ steps.version_step.outputs.new_version }}"
-      - name: Test writed Version
-        run: ./awesome-ci -version
-      - name: Create Release
-        run: ./awesome-ci createRelease -uploadArtifacts awesome-ci
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create Release and Publish
+        run: ./awesome-ci createRelease -publishNpm dist/material-calendar/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
