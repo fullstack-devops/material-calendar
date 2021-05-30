@@ -26,7 +26,12 @@ jobs:
           wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
           chmod +x awesome-ci
       - name: install npm packages
-        run: npm ci
+        run: |
+          # Retry 3 times before the steps actually fails
+          (echo "===== NPM Install Attempt: 1 ====" && npm ci) || \
+          (echo "===== NPM Install Attempt: 2 ====" && npm ci) || \
+          (echo "===== NPM Install Attempt: 3 ====" && npm ci) || \
+          (echo "==== NPM Install Step Failed ====" && exit 1)
       - name: package Applikation
         run: npm run build
       - name: Dry-Run release
