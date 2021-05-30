@@ -30,6 +30,6 @@ jobs:
       - name: package Applikation
         run: npm run build
       - name: Dry-Run release
-        run: ./awesome-ci createRelease -dry-run
+        run: ./awesome-ci createRelease -patchLevel bugfix -dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
