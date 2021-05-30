@@ -1,8 +1,11 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
-import * as moment from 'moment-feiertage';
-import business from 'moment-business';
+import * as moment_ from 'moment';
+import * as business_ from 'moment-business';
 import 'moment/min/locales';
 import { Calendar, Month, Day } from './models';
+
+const moment = moment_;
+const business = business_;
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +85,7 @@ export class CalendarService {
         day: nextMonth.day(),
         date: nextMonth.toDate(),
         isWeekendDay: business.isWeekendDay(moment(nextMonth)),
-        isHoliday: nextMonth.isHoliday([])['allStates']
+        isHoliday: false // nextMonth.isHoliday([])['allStates']
       }
       // Vormonat
       for (let i = 0; i < dayOfWeek - 1; i++) {
@@ -129,7 +132,7 @@ export class CalendarService {
           type: 'placeholderDay',
           day: newDay.date(),
           isWeekendDay: business.isWeekendDay(moment(newDay)),
-          isHoliday: moment(newDay).isHoliday([])['allStates']
+          isHoliday: false // moment(newDay).isHoliday([])['allStates']
         }
         break;
     }
@@ -168,7 +171,7 @@ export class CalendarService {
       day: currentDay.getDate(),
       date: currentDay,
       isWeekendDay: business.isWeekendDay(moment(currentDay)),
-      isHoliday: moment(currentDay).isHoliday([])['allStates']
+      isHoliday: false // moment(currentDay).isHoliday([])['allStates']
     }
   }
 }

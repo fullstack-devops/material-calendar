@@ -1,19 +1,11 @@
 {
   "name": "material-calendar",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "license": "MIT",
-  "peerDependencies": {
-    "@angular/common": "^9.1.9",
-    "@angular/core": "^9.1.9",
-    "moment": "^2.26.0"
-  },
+  "peerDependencies": {},
   "dependencies": {
-    "@angular/cdk": "^9.2.4",
-    "@angular/material": "^9.2.4",
-    "moment": "^2.26.0",
-    "moment-business": "^3.0.1",
-    "moment-feiertage": "^2.0.2",
-    "tslib": "^2.0.0"
+    "moment": "^2.29.1",
+    "moment-business": "^3.0.1"
   },
   "repository": {
     "type": "git",
