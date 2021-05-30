@@ -3,72 +3,32 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-calender": {
-      "projectType": "library",
-      "root": "projects/angular-calender",
-      "sourceRoot": "projects/angular-calender/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/angular-calender/tsconfig.lib.json",
-            "project": "projects/angular-calender/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/angular-calender/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/angular-calender/src/test.ts",
-            "tsConfig": "projects/angular-calender/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-calender/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/angular-calender/tsconfig.lib.json",
-              "projects/angular-calender/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "workspace": {
+    "lib-workspace": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/workspace",
-      "sourceRoot": "projects/workspace/src",
+      "root": "projects/lib-workspace",
+      "sourceRoot": "projects/lib-workspace/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/workspace",
-            "index": "projects/workspace/src/index.html",
-            "main": "projects/workspace/src/main.ts",
-            "polyfills": "projects/workspace/src/polyfills.ts",
-            "tsConfig": "projects/workspace/tsconfig.app.json",
+            "outputPath": "dist/lib-workspace",
+            "index": "projects/lib-workspace/src/index.html",
+            "main": "projects/lib-workspace/src/main.ts",
+            "polyfills": "projects/lib-workspace/src/polyfills.ts",
+            "tsConfig": "projects/lib-workspace/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/workspace/src/favicon.ico",
-              "projects/workspace/src/assets"
+              "projects/lib-workspace/src/favicon.ico",
+              "projects/lib-workspace/src/assets"
             ],
             "styles": [
-              "projects/workspace/src/styles.scss"
+              "projects/lib-workspace/src/styles.scss"
             ],
             "scripts": []
           },
@@ -76,8 +36,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/workspace/src/environments/environment.ts",
-                  "with": "projects/workspace/src/environments/environment.prod.ts"
+                  "replace": "projects/lib-workspace/src/environments/environment.ts",
+                  "with": "projects/lib-workspace/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -106,33 +66,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "workspace:build"
+            "browserTarget": "lib-workspace:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "workspace:build:production"
+              "browserTarget": "lib-workspace:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "workspace:build"
+            "browserTarget": "lib-workspace:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/workspace/src/test.ts",
-            "polyfills": "projects/workspace/src/polyfills.ts",
-            "tsConfig": "projects/workspace/tsconfig.spec.json",
-            "karmaConfig": "projects/workspace/karma.conf.js",
+            "main": "projects/lib-workspace/src/test.ts",
+            "polyfills": "projects/lib-workspace/src/polyfills.ts",
+            "tsConfig": "projects/lib-workspace/tsconfig.spec.json",
+            "karmaConfig": "projects/lib-workspace/karma.conf.js",
             "assets": [
-              "projects/workspace/src/favicon.ico",
-              "projects/workspace/src/assets"
+              "projects/lib-workspace/src/favicon.ico",
+              "projects/lib-workspace/src/assets"
             ],
             "styles": [
-              "projects/workspace/src/styles.scss"
+              "projects/lib-workspace/src/styles.scss"
             ],
             "scripts": []
           }
@@ -141,9 +101,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/workspace/tsconfig.app.json",
-              "projects/workspace/tsconfig.spec.json",
-              "projects/workspace/e2e/tsconfig.json"
+              "projects/lib-workspace/tsconfig.app.json",
+              "projects/lib-workspace/tsconfig.spec.json",
+              "projects/lib-workspace/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -153,12 +113,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/workspace/e2e/protractor.conf.js",
-            "devServerTarget": "workspace:serve"
+            "protractorConfig": "projects/lib-workspace/e2e/protractor.conf.js",
+            "devServerTarget": "lib-workspace:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "workspace:serve:production"
+              "devServerTarget": "lib-workspace:serve:production"
             }
           }
         }
@@ -204,5 +164,5 @@
         }
       }
     }},
-  "defaultProject": "angular-calender"
+  "defaultProject": "material-calender"
 }
