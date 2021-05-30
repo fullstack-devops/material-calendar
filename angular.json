@@ -43,32 +43,32 @@
         }
       }
     },
-    "my-first-app": {
+    "workspace": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/my-first-app",
-      "sourceRoot": "projects/my-first-app/src",
+      "root": "projects/workspace",
+      "sourceRoot": "projects/workspace/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-first-app",
-            "index": "projects/my-first-app/src/index.html",
-            "main": "projects/my-first-app/src/main.ts",
-            "polyfills": "projects/my-first-app/src/polyfills.ts",
-            "tsConfig": "projects/my-first-app/tsconfig.app.json",
+            "outputPath": "dist/workspace",
+            "index": "projects/workspace/src/index.html",
+            "main": "projects/workspace/src/main.ts",
+            "polyfills": "projects/workspace/src/polyfills.ts",
+            "tsConfig": "projects/workspace/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/my-first-app/src/favicon.ico",
-              "projects/my-first-app/src/assets"
+              "projects/workspace/src/favicon.ico",
+              "projects/workspace/src/assets"
             ],
             "styles": [
-              "projects/my-first-app/src/styles.scss"
+              "projects/workspace/src/styles.scss"
             ],
             "scripts": []
           },
@@ -76,8 +76,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/my-first-app/src/environments/environment.ts",
-                  "with": "projects/my-first-app/src/environments/environment.prod.ts"
+                  "replace": "projects/workspace/src/environments/environment.ts",
+                  "with": "projects/workspace/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -106,33 +106,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "my-first-app:build"
+            "browserTarget": "workspace:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "my-first-app:build:production"
+              "browserTarget": "workspace:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-first-app:build"
+            "browserTarget": "workspace:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/my-first-app/src/test.ts",
-            "polyfills": "projects/my-first-app/src/polyfills.ts",
-            "tsConfig": "projects/my-first-app/tsconfig.spec.json",
-            "karmaConfig": "projects/my-first-app/karma.conf.js",
+            "main": "projects/workspace/src/test.ts",
+            "polyfills": "projects/workspace/src/polyfills.ts",
+            "tsConfig": "projects/workspace/tsconfig.spec.json",
+            "karmaConfig": "projects/workspace/karma.conf.js",
             "assets": [
-              "projects/my-first-app/src/favicon.ico",
-              "projects/my-first-app/src/assets"
+              "projects/workspace/src/favicon.ico",
+              "projects/workspace/src/assets"
             ],
             "styles": [
-              "projects/my-first-app/src/styles.scss"
+              "projects/workspace/src/styles.scss"
             ],
             "scripts": []
           }
@@ -141,9 +141,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/my-first-app/tsconfig.app.json",
-              "projects/my-first-app/tsconfig.spec.json",
-              "projects/my-first-app/e2e/tsconfig.json"
+              "projects/workspace/tsconfig.app.json",
+              "projects/workspace/tsconfig.spec.json",
+              "projects/workspace/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -153,12 +153,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/my-first-app/e2e/protractor.conf.js",
-            "devServerTarget": "my-first-app:serve"
+            "protractorConfig": "projects/workspace/e2e/protractor.conf.js",
+            "devServerTarget": "workspace:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "my-first-app:serve:production"
+              "devServerTarget": "workspace:serve:production"
             }
           }
         }
