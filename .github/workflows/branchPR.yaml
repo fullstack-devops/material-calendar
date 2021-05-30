@@ -17,10 +17,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Go
+      - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-versio: '14.x'
+          version: '14.x'
       - name: Set up awesome-ci
         run: |
           wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
@@ -29,3 +29,7 @@ jobs:
         run: npm install
       - name: package Applikation
         run: npm run build
+      - name: Dry-Run release
+        run: ./awesome-ci createRelease -dry-run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
