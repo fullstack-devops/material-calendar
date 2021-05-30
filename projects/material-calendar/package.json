@@ -13,7 +13,7 @@
     "moment": "^2.26.0",
     "moment-business": "^3.0.1",
     "moment-feiertage": "^2.0.2",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "repository": {
     "type": "git",
