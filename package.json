@@ -1,10 +1,11 @@
 {
-  "name": "workspace",
+  "name": "material-calendar",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build material-calendar --configuration production",
+    "prebuild": "cp README.md projects/material-calendar/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -12,38 +13,33 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.2",
-    "@angular/cdk": "^12.0.2",
     "@angular/common": "~12.0.2",
     "@angular/compiler": "~12.0.2",
     "@angular/core": "~12.0.2",
     "@angular/forms": "~12.0.2",
-    "@angular/material": "^10.2.7",
+    "@angular/material": "~12.0.2",
     "@angular/platform-browser": "~12.0.2",
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
-    "rxjs": "~6.5.4",
-    "tslib": "^2.0.0",
+    "moment": "^2.29.1",
+    "moment-business": "^3.0.1",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.0.2",
     "@angular/cli": "~12.0.2",
     "@angular/compiler-cli": "~12.0.2",
-    "@types/jasmine": "~3.5.0",
-    "@types/jasminewd2": "~2.0.3",
+    "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
-    "jasmine-core": "~3.5.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~6.3.2",
+    "jasmine-core": "~3.7.0",
+    "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^12.0.2",
-    "protractor": "~7.0.0",
-    "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.2.4"
+    "ng-packagr": "^12.0.0",
+    "typescript": "~4.2.3"
   }
 }
