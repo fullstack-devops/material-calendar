@@ -25,8 +25,6 @@ jobs:
         run: |
           wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
           chmod +x awesome-ci
-      - name: install angular cli
-        run: npm install -g @angular/cli > /dev/null
       - name: install npm packages
         run: npm ci
       - name: package Applikation
