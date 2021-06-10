@@ -1,11 +1,11 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
-import * as moment_ from 'moment';
-import * as business_ from 'moment-business';
+import * as moment from 'moment';
+import * as business from 'moment-business';
 import 'moment/min/locales';
 import { Calendar, Month, Day } from './models';
 
-const moment = moment_;
-const business = business_;
+// const moment = moment_;
+// const business = business_;
 
 @Injectable({
   providedIn: 'root'
