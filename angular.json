@@ -139,6 +139,9 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/material-calendar/tsconfig.lib.prod.json"
+            },
+            "ivy": {
+              "tsConfig": "projects/material-calendar/tsconfig.lib.ivy.json"
             }
           }
         },
