@@ -4,8 +4,8 @@ This material calendar is just beginning. As in the angular material components,
 
 > Note: tthe following changes from version 3.0.0 onwards will no longer be compatible with this api. All necessary changes are documented. Version 3.0.0 is coming soon ;)
 
-### Live demo
-[Open demo on Stackblitz](https://stackblitz.com/github/e-netsupport/material-calendar-demo)
+### Working demo
+[demo github project](https://github.com/eksrvb/material-calendar-demo)
 
 ## Installing
 `npm i material-calendar`
@@ -42,14 +42,6 @@ In your html:
 <calendar-panels></calendar-panels>
 ```
 and you are good to go ;)
-
->If only a one-month layout is required, the following tag can also be used:
->``` html
-><calendar-panel [placeholderDay]="placeholder" year="2020" month="5" [config]="calendarConfig" (clickDate)="yourMethod($event)">
-></calendar-panel>
->```
->.
-
 
 All options are shown here:
 

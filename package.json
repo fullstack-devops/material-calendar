@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build material-calendar --configuration production",
+    "build:ivy": "ng build material-calendar --configuration ivy",
     "prebuild": "cp README.md projects/material-calendar/",
     "test": "ng test",
     "lint": "ng lint",
