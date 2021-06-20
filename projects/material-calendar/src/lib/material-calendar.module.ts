@@ -7,12 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 import { CalendarPanelsComponent } from './calendar-panels/calendar-panels.component';
-import { CalendarPanelComponent } from './calendar-panel/calendar-panel.component';
 
 @NgModule({
   declarations: [
-    CalendarPanelsComponent,
-    CalendarPanelComponent
+    CalendarPanelsComponent
   ],
   imports: [
     BrowserModule,
@@ -22,8 +20,7 @@ import { CalendarPanelComponent } from './calendar-panel/calendar-panel.componen
     MatButtonModule
   ],
   exports: [
-    CalendarPanelsComponent,
-    CalendarPanelComponent
+    CalendarPanelsComponent
   ]
 })
 export class MaterialCalendarModule { }
