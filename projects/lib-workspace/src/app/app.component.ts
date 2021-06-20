@@ -20,14 +20,11 @@ export class AppComponent implements OnInit {
     panelBgColor: '#ffffff',
     autoTextColor: true,
     textColor: '#fff',
-    useHolidays: false,
-    holidayColor: 'rgb(253, 173, 0)',
-    holidayTextColor: 'rgb(253, 173, 0)',
     displayYear: true,
     firstDayOfWeekMonday: true,
     calendarWeek: true,
     todayColor: '#000000',
-    panelWidth: '90%',
+    panelWidth: '300px',
     switches: true,
   }
 
