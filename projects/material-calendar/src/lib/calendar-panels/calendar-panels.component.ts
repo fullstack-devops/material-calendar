@@ -11,20 +11,17 @@ import { SharedFunctions } from '../service/shared-functions';
 })
 export class CalendarPanelsComponent implements OnInit {
 
-  private _mode: string;
+  private _mode: string = "monthly";
   private _config: CalendarConfig = {
     panelBgColor: '#ffffff', // 00677f 006105
     autoTextColor: true,
     textColor: '#fff',
-    useHolidays: false,
-    holidayColor: 'rgb(253, 173, 0)',
-    holidayTextColor: 'rgb(253, 173, 0)',
     displayYear: true,
     firstDayOfWeekMonday: true,
     todayColor: '#000000',
-    panelWidth: '100%',
+    panelWidth: '420px',
     calendarWeek: true,
-    switches: false,
+    switches: true,
   };
   private _data = null;
   private _month = new Date().getUTCMonth();
@@ -158,16 +155,13 @@ export class CalendarPanelsComponent implements OnInit {
     this.panelBgColor = this.config.panelBgColor;
     this.panelBgColorDarker = pSBC.pSBC(-0.4, this.panelBgColor);
     this.panelBgColorLighter = pSBC.pSBC(0.3, this.sharedFunctions.lightOrDarkTextColor(this.panelBgColor));
-    this.panelBgColorHoliday = this.config.holidayColor;
     this.todayColor = this.config.todayColor;
     this.panelWidth = '100%';
 
     if (this.config.autoTextColor) {
       this.panelColor = this.sharedFunctions.lightOrDarkTextColor(this.panelBgColor);
-      this.panelColorHoliday = this.sharedFunctions.lightOrDarkTextColor(this.config.holidayColor);
     } else {
       this.panelColor = this.config.textColor;
-      this.panelColorHoliday = this.config.holidayTextColor;
     }
 
     if (this.config.panelWidth != '' || this.config.panelWidth != null || this.config.panelWidth != undefined) {

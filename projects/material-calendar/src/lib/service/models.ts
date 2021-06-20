@@ -13,15 +13,12 @@
 export interface CalendarConfig {
     autoTextColor: boolean;
     calendarWeek: boolean;
-    useHolidays: boolean;
     displayYear: boolean;
     switches: boolean;
     firstDayOfWeekMonday: boolean;
     panelBgColor?: string;
     textColor?: string;
-    holidayColor?: string;
     todayColor?: string;
-    holidayTextColor?: string;
     panelWidth?: string;
 }
 
