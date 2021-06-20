@@ -4,8 +4,7 @@
   "license": "MIT",
   "peerDependencies": {},
   "dependencies": {
-    "moment": "^2.29.1",
-    "moment-business": "^3.0.1"
+    "moment": "^2.29.1"
   },
   "repository": {
     "type": "git",
