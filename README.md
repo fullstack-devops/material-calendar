@@ -10,9 +10,9 @@ From version 3.0.0 onwards there will be a stable API with extensive features an
 ### Working demo
 [demo github project](https://github.com/eksrvb/material-calendar-demo)
 
-![material-calendar-single-month](https://github.com/eksrvb/material-calendar/docs/material-calendar-single-month.png)
-![material-calendar-three-months](https://github.com/eksrvb/material-calendar/docs/material-calendar-three-months.png)
-![material-calendar-two-months-with-placeholder](https://github.com/eksrvb/material-calendar/docs/material-calendar-two-months-with-placeholder.png)
+![material-calendar-single-month](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-single-month.png)
+![material-calendar-three-months](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-three-months.png)
+![material-calendar-two-months-with-placeholder](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-two-months-with-placeholder.png)
 
 ## Installing
 `npm i material-calendar`
