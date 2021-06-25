@@ -1,10 +1,20 @@
 ---
 layout: default
-title: Home
+title: OVERVIEW
 nav_order: 1
 ---
 
 ## Welcome to the Material Calendar documentation!
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
 
 This project should fill the current gap for a simple material calendar which is not included in the material standard. This documentation is constantly being expanded.
 
@@ -25,15 +35,17 @@ If you need an example for your pipeline you can find it in the sidebar under th
 `npm i material-calendar`
 
 > Please use every version above 3.0.0
+> All available version are listed at [npmjs](https://www.npmjs.com/package/material-calendar)
 
 ## Usage and configuration
 
-go to the [configuration](https://eksrvb.github.io/material-calendar/configuration) section to learn more
+go to the [configuration](https://eksrvb.github.io/material-calendar/docs/configuration) section to learn more
 
 ## A couple of impressions
 
-![material-calendar-single-month](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-single-month.png)
+### One single panel without displaying calendar week
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/monthly-onem-cdata.png)
 
-![material-calendar-three-months](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-three-months.png)
+### One single panel with displaying calendar week
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/monthly-onem-cdata-kw.png)
 
-![material-calendar-two-months-with-placeholder](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-two-months-with-placeholder.png)
