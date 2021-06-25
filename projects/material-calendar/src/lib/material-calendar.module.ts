@@ -2,25 +2,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { CalendarPanelsComponent } from './calendar-panels/calendar-panels.component';
+import { CalendarPanelComponent } from './calendar-panels/calendar-panels.component';
 
 @NgModule({
   declarations: [
-    CalendarPanelsComponent
+    CalendarPanelComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
   exports: [
-    CalendarPanelsComponent
+    CalendarPanelComponent
   ]
 })
 export class MaterialCalendarModule { }
