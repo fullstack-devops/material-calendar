@@ -96,19 +96,3 @@ calendarConfig: CalendarConfig = {
     panelWidth: '350px'
 };
 ```
-
-The interface for CalendarConfig:
-
-```typescript
-/**
- * @param {string}    renderMode              choose render mode ('annual' or 'monthly')
- * @param {string}    selectMode              choose select mode ('click' or 'range')
- * @param {boolean}   calendarWeek            display the calendar week
- * @param {boolean}   displayYear             displays the year next to the Month name
- * @param {boolean}   switches                show arrows to navigate an month forward or backwards
- * @param {boolean}   bluredDays              make an circle around the number of the day
- * @param {boolean}   markWeekend             highlight weekends
- * @param {boolean}   firstDayOfWeekMonday    set first day of week (monday or sunday)
- * @param {string}    panelWidth              set a with for an single panel
- */
-```
