@@ -1,18 +1,7 @@
 <div class="selection">
-    <mat-form-field>
-        <mat-label>Select Mode</mat-label>
-        <mat-select [(ngModel)]="mode" name="mode">
-            <mat-option value="monthly">monthly</mat-option>
-            <mat-option value="annual">annual</mat-option>
-        </mat-select>
-    </mat-form-field>
-
     <mat-slide-toggle [(ngModel)]="placeholder">
         Days placeholder
     </mat-slide-toggle>
-    <!-- <mat-slide-toggle [(ngModel)]="calendarConfig.calendarWeek">
-        Calendar week
-    </mat-slide-toggle> -->
 
     <mat-form-field>
         <mat-label>Months before</mat-label>
@@ -28,15 +17,14 @@
         </mat-select>
     </mat-form-field>
 
+    <div>
+        Events: {{ latestEvent | json }}
+    </div>
+
 </div>
 
 <div>
-    <calendar-panels [mode]="mode" [placeholderDay]="placeholder" year="2021" month="5" [monthsBefore]="monthsBefore"
+    <calendar-panel [placeholderDay]="placeholder" [dataSource]="dataSource" year="2021" month="5" [monthsBefore]="monthsBefore"
         [monthsAfter]="monthsAfter" [config]="calendarConfig" (clickDate)="testMethod($event)">
-    </calendar-panels>
-</div>
-
-<!-- <div style="width: 600px;">
-    <calendar-panel [placeholderDay]="placeholder" year="2020" month="5" [config]="calendarConfig" (clickDate)="testMethod($event)">
     </calendar-panel>
-</div> -->
+</div>
