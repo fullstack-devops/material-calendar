@@ -51,14 +51,14 @@ Optionally provide your location:
 
 | Name | Default | Description |
 | ---- | ------- | ----------- |
-| placeholderDay: boolean | false |  |
-| dataSource: DayC[]      | null |  |
-| year: number            | current year |  |
-| month: number           | current month |  |
-| monthsBefore: number    | 0 |  |
-| monthsAfter: number     | 0 |  |
-| config: CalendarConfig  | null |  |
-| (clickDate)             | - |  |
+| placeholderDay: boolean | false | show a day that does not occur directly in the month and serves as a visual placeholder |
+| dataSource: DayC[]      | null | transfer own days to equip the existing days in the component with data |
+| year: number            | current year | select the start year |
+| month: number           | current month | select the start month |
+| monthsBefore: number    | 0 | how many months should be displayed before the selected month |
+| monthsAfter: number     | 0 | how many months should be displayed after the selected month |
+| config: CalendarConfig  | null | overwrite configuration for the component |
+| (clickDate)             | - | returns an event with selected days depending on the selected mode (single click or range of days) |
 
 ## interfaces
 
