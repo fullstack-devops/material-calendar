@@ -14,11 +14,11 @@ export class AppComponent implements OnInit {
   latestEvent = ""
 
   monthsAfterBefore = Array(5).fill(0).map((x, i) => i);
-  monthsBefore = 0;
-  monthsAfter = 0;
+  monthsBefore = 1;
+  monthsAfter = 1;
 
   calendarConfig: CalendarConfig = {
-    renderMode: 'monthly', // 'annual' | 'monthly'
+    renderMode: 'annual', // 'annual' | 'monthly'
     selectMode: 'click',  // 'click' | 'range'
     displayYear: true,
     firstDayOfWeekMonday: true,
