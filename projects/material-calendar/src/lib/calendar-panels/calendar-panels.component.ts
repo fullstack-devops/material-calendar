@@ -14,11 +14,11 @@ export class CalendarPanelComponent implements OnInit {
     selectMode: 'click',
     displayYear: true,
     firstDayOfWeekMonday: true,
-    calendarWeek: true,
-    switches: false,
+    calendarWeek: false,
+    switches: true,
     bluredDays: false,
     markWeekend: true,
-    panelWidth: '100%'
+    panelWidth: '350px'
   };
   private _mode: string;
   private _dataSource: DayC[] = null;
