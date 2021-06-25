@@ -10,6 +10,8 @@ From version 3.0.0 onwards there will be a stable API with extensive features an
 ### Working demo
 [demo github project](https://github.com/eksrvb/material-calendar-demo)
 
+If you want to give me feedback and don't want to open an issue on github, please fill out the [form](https://forms.gle/W9TygXf65Yru3VHi7)
+
 ![material-calendar-single-month](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-single-month.png)
 ![material-calendar-three-months](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-three-months.png)
 ![material-calendar-two-months-with-placeholder](https://github.com/eksrvb/material-calendar/raw/main/docs/material-calendar-two-months-with-placeholder.png)
@@ -46,78 +48,71 @@ In my case: `{provide:  LOCALE_ID, useValue:  'de-DE' }`
 
 In your html:
 ``` html
-<calendar-panels></calendar-panels>
-```
-and you are good to go ;)
-
-All options are shown here:
-
-``` html
-<calendar-panels
-	[mode]="mode"
-	[placeholderDay]="placeholder"
+<calendar-panel
+	placeholderDay="true"
 	year="2020"
-	month="3" 
+	month="10"
 	monthsBefore="1"
-	monthsAfter="1"
+	monthsAfter="2"
+	[dataSource]="dataSource"
 	[config]="calendarConfig"
-	(clickDate)="yourMethod($event)">
-</calendar-panels>
-<!--
-	default mode = monthly
-	default placeholderDay = false
-	default year = current year
-	default month = current month
-	default monthsBefore = 1
-	default monthsAfter = 1
--->
+	(clickDate)="testMethod($event)">
+   </calendar-panel>
+   <!--
+	default placeholderDay = false   override: boolean
+	default year = current year      override: year to start (number)
+	default month = current month    override: month to start (number)
+	default monthsBefore = 0         
+	default monthsAfter = 0
+	dataSource                       your custom dataSource
+	config                           insert your configuration
+	clickDate                        recive an click event from the component
+    -->
 ```
-``` typescript
-import { CalendarConfig } from  'material-calendar';
 
-placeholder = false  // boolean ...can be hardcoded in html
-mode = 'monthly'  // 'annual' | 'monthly' ...can be hardcoded in html
+``` typescript
+import { CalendarConfig, DayC } from  'material-calendar';
+
+placeholder = false  // boolean
 
 calendarConfig: CalendarConfig = {
-	panelBgColor:  '#00677f', // use only hex or rbg colors
-	autoTextColor:  true,
-	textColor:  '#fff', // use only hex or rbg colors
-	displayYear: true,
+	calendarConfig: CalendarConfig = {
+    renderMode: 'monthly', // 'annual' | 'monthly'
+    selectMode: 'range',  // 'click' | 'range'
+    displayYear: false,
     firstDayOfWeekMonday: true,
-    todayColor: '#fff',
-    panelWidth: '100%', // can also be fix values such as 350px
     calendarWeek: true,
-    switches: false,
+    switches: true,
+  }
 }
+
+dataSource: DayC[] = [
+  {
+    date: 1604185200000,
+    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+    toolTip: 'Test ToolTip',
+    badgeMode: 'Icon',
+    badgeInt: 5,
+    badgeIcon: 'edit'
+  },
+  {
+    date: 1604199900000,
+    backgroundColor: 'blue'
+  }
+]
 ```
-``` javascript
-/**
-* @param  {boolean}  autoTextColor Sets the text color automatically, based on the backgroud colors
-* @param  {boolean}  calendarWeek display the calendar week
-* @param  {boolean}  displayYear displays the year next to the Month name
-* @param  {boolean}  switches display switches in calendar component or not
-* @param  {string}   panelBgColor sets the background color of the panel
-* @param  {string}   textColor if autoTextColor false this must be set to a custom color
-*
-*/
-```
 
-## Planned features
-
-- insert your own calendar data and render the new template
-- multiselect days optional (returns the daily span)
-
-and many more...
 
 ## Features
 
 - generate a nice calendar in material design
 - get a date back with the annotation "clickDate" (see example)
+- insert your own calendar data and render the new template
+- multiselect days optional (returns the daily span)
 
 ## Code scaffolding
 
 For code scaffolding, the project can be checked out from the public repository and pull requests can be made.
-  
 
 ## Build
 
