@@ -1,45 +1,50 @@
-import { Component, OnInit, HostBinding, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { CalendarService } from '../service/calendar.service';
-import * as pSBC from '../service/pSBC';
-import { CalendarConfig } from '../service/models';
-import { SharedFunctions } from '../service/shared-functions';
+import { CalendarConfig, DayC } from '../service/models';
 
 @Component({
-  selector: 'calendar-panels',
+  selector: 'calendar-panel',
   templateUrl: './calendar-panels.component.html',
   styleUrls: ['./calendar-panels.component.scss']
 })
-export class CalendarPanelsComponent implements OnInit {
+export class CalendarPanelComponent implements OnInit {
 
-  private _mode: string = "monthly";
   private _config: CalendarConfig = {
-    panelBgColor: '#ffffff', // 00677f 006105
-    autoTextColor: true,
-    textColor: '#fff',
+    renderMode: 'monthly',
+    selectMode: 'click',
     displayYear: true,
     firstDayOfWeekMonday: true,
-    todayColor: '#000000',
-    panelWidth: '420px',
-    calendarWeek: true,
+    calendarWeek: false,
     switches: true,
+    bluredDays: false,
+    markWeekend: true,
+    panelWidth: '350px'
   };
-  private _data = null;
+  private _mode: string;
+  private _dataSource: DayC[] = null;
   private _month = new Date().getUTCMonth();
   private _year: number = new Date().getFullYear()
-  private _monthsBefore: number = 1;
-  private _monthsAfter: number = 1;
+  private _monthsBefore: number = 0;
+  private _monthsAfter: number = 0;
 
   calendar = null
   today = new Date().setHours(0, 0, 0, 0)
+  selectedDayStart: number = 0
+  selectedDayBetween: number[] = []
+  selectedDayEnd: number = 0
+  isLoading = true
+  monthOverrride = false
 
+  weekendColor = 'rgba(0, 0, 0, .25)'
+
+  get config() {
+    return this._config;
+  }
   get mode(): string {
     return this._mode;
   }
-  get config(): CalendarConfig {
-    return this._config;
-  }
-  get dataSource(): any {
-    return this._data;
+  get dataSource(): DayC[] {
+    return this._dataSource;
   }
   get month(): number {
     return this._month;
@@ -55,13 +60,13 @@ export class CalendarPanelsComponent implements OnInit {
   }
 
   @Input()
-  set mode(val: string) {
-    this._mode = val;
+  set dataSource(data: DayC[]) {
+    this._dataSource = data;
     this.generateX()
   }
   @Input()
-  set dataSource(data: any) {
-    this._data = data;
+  set mode(val: string) {
+    this._mode = val;
     this.generateX()
   }
   @Input()
@@ -73,7 +78,6 @@ export class CalendarPanelsComponent implements OnInit {
   @Input()
   set config(data: CalendarConfig) {
     this._config = data;
-    console.log(data)
     this.generateX()
   }
   @Input()
@@ -91,42 +95,83 @@ export class CalendarPanelsComponent implements OnInit {
     this._monthsAfter = data;
     this.generateX()
   }
-
   @Input() placeholderDay: boolean = false;
 
-  isLoading = true
-  monthOverrride = false
-
-  // Styling
-  @HostBinding("style.--panel-color")
-  panelBgColor;
-  @HostBinding("style.--panel-color-darker")
-  panelBgColorDarker;
-  @HostBinding("style.--panel-color-lighter")
-  panelBgColorLighter;
-  @HostBinding("style.--text-color")
-  panelColor;
-  @HostBinding("style.--panel-color-holiday")
-  panelBgColorHoliday;
-  @HostBinding("style.--text-color-holiday")
-  panelColorHoliday;
-  @HostBinding("style.--today-color")
-  todayColor;
-  panelWidth = '100%';
-
   @Output() public clickDate = new EventEmitter<Object>();
-  onClick(event){
-    this.clickDate.emit(event);
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      this.selectedDayBetween = []
+      this.selectedDayStart = 0
+      this.selectedDayEnd = 0
+    }
   }
 
-  constructor(private calendarService: CalendarService,
-    private sharedFunctions: SharedFunctions) { }
+  constructor(private calendarService: CalendarService) { }
 
   ngOnInit() {
-    if (this.monthsAfter > 10 || this.monthsBefore > 10) {
-      console.error('The monthsBefore and monthsAfter should not be greater than 10, this could result in errors!')
-    }
     this.isLoading = false
+  }
+
+  onClick(day, type) {
+    if (type == 'date' && this.config.selectMode == 'range') {
+      if (this.selectedDayStart != 0 && this.selectedDayEnd != 0) {
+        this.selectedDayBetween = []
+        this.selectedDayStart = 0
+        this.selectedDayEnd = 0
+      }
+      if (this.selectedDayStart > day.date || this.selectedDayStart === 0) {
+        this.selectedDayStart = day.date
+      } else {
+        this.selectedDayEnd = day.date
+        this.clickDate.emit(
+          {
+            mode: 'range',
+            startDay: this.selectedDayStart,
+            endDay: this.selectedDayEnd,
+            effectedDays: [this.selectedDayStart, ...this.selectedDayBetween]
+          }
+        );
+      }
+    } else {
+      this.clickDate.emit({ mode: 'click', day: day });
+    }
+  }
+
+  onMouseOver(dateComp) {
+    if (this.selectedDayStart != 0 && this.selectedDayEnd == 0) {
+      this.selectedDayBetween = this.calendar.daysAbsolute.filter(date => date <= dateComp && date > this.selectedDayStart)
+      const fIndex = this.selectedDayBetween.indexOf(dateComp)
+      if (fIndex === this.selectedDayBetween.length - 1) {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
+
+  getAmIBetween(date) {
+    const fIndex = this.selectedDayBetween.indexOf(date)
+    if (fIndex != -1) {
+      if (this.selectedDayBetween.length === fIndex + 1) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return false
+    }
+  }
+
+  getCanIBeHighlighted(date) {
+    if (this.selectedDayStart != 0 && this.selectedDayEnd != 0 && this.getAmIBetween(date)
+      || (this.selectedDayStart === date && this.selectedDayEnd != 0)
+      || (this.selectedDayEnd === date && this.selectedDayStart != 0)) {
+        return true
+      } else {
+        return false
+      }
   }
 
   onMonthForward() {
@@ -151,35 +196,10 @@ export class CalendarPanelsComponent implements OnInit {
     this.generateX()
   }
 
-  setCssVars() {
-    this.panelBgColor = this.config.panelBgColor;
-    this.panelBgColorDarker = pSBC.pSBC(-0.4, this.panelBgColor);
-    this.panelBgColorLighter = pSBC.pSBC(0.3, this.sharedFunctions.lightOrDarkTextColor(this.panelBgColor));
-    this.todayColor = this.config.todayColor;
-    this.panelWidth = '100%';
-
-    if (this.config.autoTextColor) {
-      this.panelColor = this.sharedFunctions.lightOrDarkTextColor(this.panelBgColor);
-    } else {
-      this.panelColor = this.config.textColor;
-    }
-
-    if (this.config.panelWidth != '' || this.config.panelWidth != null || this.config.panelWidth != undefined) {
-      this.panelWidth = this.config.panelWidth;
-    } else {
-      this.panelWidth = '100%';
-    }
-  }
-
   generateX() {
-    this.setCssVars()
     const usedYear = this.monthOverrride ? this._year : this.year
     const usedMonth = this.monthOverrride ? this._month : this.month
-    if (this.mode === 'annual') {
-      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, this.year)
-    } else if (this.mode === 'monthly') {
-      this.calendar = this.calendarService.generateMatrix(this.mode, this.config.calendarWeek, null, usedYear, usedMonth, this.monthsBefore, this.monthsAfter)
-    }
-    // console.log(this.calendar)
+    this.calendar = this.calendarService.generateMatrix(this.config.renderMode, this.config.calendarWeek, this.dataSource, usedYear, usedMonth, this.monthsBefore, this.monthsAfter)
   }
+
 }

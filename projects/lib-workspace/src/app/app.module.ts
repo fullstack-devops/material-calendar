@@ -4,8 +4,10 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MaterialCalendarModule } from 'projects/material-calendar/src/public-api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material';
 import { FormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
     FormsModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatSelectModule,
     MaterialCalendarModule
   ],
   providers: [
