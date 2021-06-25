@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     selectMode: 'click',  // 'click' | 'range'
     displayYear: true,
     firstDayOfWeekMonday: true,
-    calendarWeek: false,
+    calendarWeek: true,
     switches: true,
     panelWidth: '300px'
   }
