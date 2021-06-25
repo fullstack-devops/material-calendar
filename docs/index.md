@@ -37,15 +37,17 @@ If you need an example for your pipeline you can find it in the sidebar under th
 > Please use every version above 3.0.0
 > All available version are listed at [npmjs](https://www.npmjs.com/package/material-calendar)
 
-## Usage and configuration
-
-go to the [configuration](https://eksrvb.github.io/material-calendar/docs/configuration) section to learn more
 
 ## A couple of impressions
 
 ### One single panel without displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/monthly-onem-cdata.png)
+![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/monthly-onem-cdata.png)
 
 ### One single panel with displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/monthly-onem-cdata-kw.png)
+![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/monthly-onem-cdata-kw.png)
 
+### Three panels with displaying calendar week
+![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/monthly-threem-cdata-kw.png)
+
+### A calendar with 12 months (annual-mode) and with displaying calendar week
+![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/annual-cdata-kw.png)

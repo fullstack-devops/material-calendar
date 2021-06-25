@@ -72,8 +72,8 @@ All options are shown here:
 	default placeholderDay = false
 	default year = current year
 	default month = current month
-	default monthsBefore = 1
-	default monthsAfter = 1
+	default monthsBefore = 0
+	default monthsAfter = 0
 -->
 ```
 
