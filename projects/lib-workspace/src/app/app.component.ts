@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { CalendarConfig, DayC } from 'projects/material-calendar/src/public-api';
 
 @Component({
@@ -9,6 +11,10 @@ import { CalendarConfig, DayC } from 'projects/material-calendar/src/public-api'
 export class AppComponent implements OnInit {
   title = 'Material Calendar Demo';
 
+  // Theming
+  toggleControl = new FormControl(false);
+  @HostBinding('class') className = '';
+
   placeholder = false // boolean
   isLoading = true
   latestEvent = ""
@@ -18,8 +24,8 @@ export class AppComponent implements OnInit {
   monthsAfter = 1;
 
   calendarConfig: CalendarConfig = {
-    renderMode: 'annual', // 'annual' | 'monthly'
-    selectMode: 'click',  // 'click' | 'range'
+    renderMode: 'monthly', // 'annual' | 'monthly'
+    selectMode: 'range',  // 'click' | 'range'
     displayYear: true,
     firstDayOfWeekMonday: true,
     calendarWeek: true,
@@ -58,10 +64,18 @@ export class AppComponent implements OnInit {
     }
   ]
 
-  constructor() {
-  }
+  constructor(private overlay: OverlayContainer) { }
+ngOnInit(): void {
+    this.toggleControl.valueChanges.subscribe((darkMode) => {
+      const darkClassName = 'darkMode';
+      this.className = darkMode ? darkClassName : '';
+      if (darkMode) {
+        this.overlay.getContainerElement().classList.add(darkClassName);
+      } else {
+        this.overlay.getContainerElement().classList.remove(darkClassName);
+      }
+    });
 
-  ngOnInit() {
     console.log(this.dataSource)
     this.isLoading = false
   }
