@@ -1,31 +1,43 @@
-<div class="selection">
-    <mat-slide-toggle [(ngModel)]="placeholder">
-        Days placeholder
+<div class="mat-app-background">
+
+  <mat-toolbar color="primary">
+    Angular Dark Mode
+    <div class="flex-stretch"></div>
+    <mat-icon class="mr-8">brightness_5</mat-icon>
+    <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
     </mat-slide-toggle>
+    <mat-icon>bedtime</mat-icon>
+  </mat-toolbar>
 
-    <mat-form-field>
-        <mat-label>Months before</mat-label>
-        <mat-select [(ngModel)]="monthsBefore">
-            <mat-option *ngFor="let num of monthsAfterBefore" [value]="num">{{num}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+  <div class="selection">
+      <mat-slide-toggle [(ngModel)]="placeholder">
+          Days placeholder
+      </mat-slide-toggle>
 
-    <mat-form-field>
-        <mat-label>Months after</mat-label>
-        <mat-select [(ngModel)]="monthsAfter">
-            <mat-option *ngFor="let num of monthsAfterBefore" [value]="num">{{num}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+      <mat-form-field>
+          <mat-label>Months before</mat-label>
+          <mat-select [(ngModel)]="monthsBefore">
+              <mat-option *ngFor="let num of monthsAfterBefore" [value]="num">{{num}}</mat-option>
+          </mat-select>
+      </mat-form-field>
 
-    <div>
-        Events: {{ latestEvent | json }}
-    </div>
+      <mat-form-field>
+          <mat-label>Months after</mat-label>
+          <mat-select [(ngModel)]="monthsAfter">
+              <mat-option *ngFor="let num of monthsAfterBefore" [value]="num">{{num}}</mat-option>
+          </mat-select>
+      </mat-form-field>
 
-</div>
+      <div>
+          Events: {{ latestEvent | json }}
+      </div>
 
-<div>
-    <calendar-panel [placeholderDay]="placeholder" [dataSource]="dataSource" year="2021" month="5"
-        [monthsBefore]="monthsBefore" [monthsAfter]="monthsAfter" [config]="calendarConfig"
-        (clickDate)="testMethod($event)">
-    </calendar-panel>
+  </div>
+
+  <div>
+      <calendar-panel [placeholderDay]="placeholder" [dataSource]="dataSource" year="2021" month="5"
+          [monthsBefore]="monthsBefore" [monthsAfter]="monthsAfter" [config]="calendarConfig"
+          (clickDate)="testMethod($event)">
+      </calendar-panel>
+  </div>
 </div>
