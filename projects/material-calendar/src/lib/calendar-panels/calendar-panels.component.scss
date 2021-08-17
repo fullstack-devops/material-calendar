@@ -35,7 +35,7 @@
 
 .mdc-table-header,
 .kw {
-    color: rgba(0, 0, 0, 0.38);
+  opacity: 0.65;
 }
 
 .kw {
@@ -55,14 +55,6 @@
     font-size: 13px;
 }
 
-.mdc-body-label td {
-    height: 0;
-    line-height: 2;
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 14px;
-    text-align: center;
-    font-weight: 500;
-}
 .mdc-table thead tr td button {
     visibility: hidden;
 }
@@ -96,24 +88,11 @@
     align-items: center;
 }
 
-.mdc-body-cell-content-min {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    box-sizing: border-box;
-    height: 90%;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .clickable {
     cursor: pointer;
 }
 
 .mdc-body-today {
-    border: 1px solid rgba(0, 0, 0, 0.38);
     border-radius: 100%;
 }
 
