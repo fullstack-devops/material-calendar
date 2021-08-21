@@ -5,7 +5,7 @@ import { CalendarConfig, DayC } from '../service/models';
 @Component({
   selector: 'calendar-panel',
   templateUrl: './calendar-panels.component.html',
-  styleUrls: ['./calendar-panels.component.scss','./calendar-panels.component-theme.scss']
+  styleUrls: ['./calendar-panels.component.scss']
 })
 export class CalendarPanelComponent implements OnInit {
 
