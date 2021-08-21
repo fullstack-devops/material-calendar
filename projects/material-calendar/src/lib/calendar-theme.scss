@@ -1,0 +1,51 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import "~@angular/material/theming";
+
+// Define a mixin that accepts a theme and outputs the color styles for the component.
+@mixin calendar-theme($theme) {
+  // Extract whichever individual palettes you need from the theme.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  // Gets the standard material maps of fore/background
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  // Use mat-color to extract individual colors from a palette as necessary.
+  .mdc-body-today {
+    border: 1px solid mat-color($foreground, secondary-text);
+  }
+
+  .mdc-switches svg {
+    fill: mat-color($foreground, base);
+  }
+
+  .placeholderDay {
+    color: mat-color($foreground, hint-text);
+  }
+
+  .mdc-table-header tr:first-child {
+    border-bottom: solid 1px mat-color($foreground, divider);
+    color: mat-color($foreground, secondary-text);
+  }
+  .kw {
+    border-right: solid 1px mat-color($foreground, divider);
+    color: mat-color($foreground, secondary-text);
+  }
+
+  .clickable:hover {
+    background-color: mat-color($primary, lighter);
+  }
+
+  .selected-set.date-between::after {
+    background-color: mat-color($primary, lighter);
+    color: mat-color($primary, text);
+  }
+  .selected-set.selected-start:not(.date-between)::after,
+  .selected-set.selected-end:not(.date-between)::after {
+    background-color: mat-color($primary, lighter);
+  }
+
+  .blurday {
+    background: radial-gradient(circle at center, white 0, white 12px, transparent 14px, transparent 100%);
+  }
+}

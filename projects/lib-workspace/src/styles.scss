@@ -1,10 +1,9 @@
-body {
-  margin: 0;
-}
-
 @import '~@angular/material/theming';
 @include mat-core();
 
+.test{
+  color: steelblue;
+}
 $mat-primary-scheme: (
   100: #c5cae9,
   500: #3f51b5,
@@ -30,6 +29,9 @@ $mat-accent-palette: mat-palette($mat-accent-scheme);
 
 $app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
 
+@import "../../material-calendar/src/lib/calendar-theme.scss";
+@include calendar-theme($app-light-theme);
+
 @include angular-material-theme($app-light-theme);
 
 // following section is for dark mode.
@@ -37,4 +39,15 @@ $app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
 $app-dark-theme: mat-dark-theme($mat-primary-palette, $mat-accent-palette);
 .darkMode {
   @include angular-material-theme($app-dark-theme);
+  @include calendar-theme($app-dark-theme);
+}
+
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
