@@ -20,24 +20,26 @@ export class AppComponent implements OnInit {
   latestEvent = ""
 
   monthsAfterBefore = Array(5).fill(0).map((x, i) => i);
-  monthsBefore = 1;
-  monthsAfter = 1;
+  monthsBefore = 0;
+  monthsAfter = 2;
 
   calendarConfig: CalendarConfig = {
     renderMode: 'monthly', // 'annual' | 'monthly'
     selectMode: 'range',  // 'click' | 'range'
     displayYear: true,
     firstDayOfWeekMonday: true,
-    calendarWeek: true,
+    calendarWeek: false,
     switches: true,
-    panelWidth: '300px'
+    panelWidth: '300px',
+    bluredDays: false, // default: false
+    markWeekend: true // default: true
   }
 
   dataSource: DayC[] = [
     {
       date: 1624312800000,
       backgroundColor: '#0167c7',
-      toolTip: 'Test ToolTip',
+      toolTip: 'Test ToolTip First',
       badgeMode: 'Icon',
       badgeInt: 5,
       badgeIcon: 'edit'
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
     {
       date: 1624312800000,
       backgroundColor: 'rgb(6, 182, 0)',
-      toolTip: 'Test ToolTip',
+      toolTip: 'Test ToolTip Second',
       badgeMode: 'Icon',
       badgeInt: 5,
       badgeIcon: 'edit'
@@ -65,7 +67,7 @@ export class AppComponent implements OnInit {
   ]
 
   constructor(private overlay: OverlayContainer) { }
-ngOnInit(): void {
+  ngOnInit(): void {
     this.toggleControl.valueChanges.subscribe((darkMode) => {
       const darkClassName = 'darkMode';
       this.className = darkMode ? darkClassName : '';

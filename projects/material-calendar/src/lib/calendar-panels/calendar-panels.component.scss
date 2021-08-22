@@ -65,9 +65,12 @@
   line-height: 0;
   text-align: center;
   outline: none;
+  z-index: 1;
 }
 
-.mdc-body-cell-content {
+.mdc-body-cell-content,
+.mdc-body-cell-content::before,
+.mdc-body-cell-content::after {
   position: absolute;
   top: 0;
   box-sizing: border-box;
@@ -76,23 +79,45 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 }
 
-.mdc-body-cell-content.mdc-body-cell-content-helper {
-  z-index: 1;
+.mdc-body-cell-content::before {
+  content: "";
+  z-index: -1;
+}
+.mdc-body-cell-content::after {
+  content: "";
+  z-index: -2;
+}
+
+.selected-set.date-between::after,
+.selected-set.selected-start::after,
+.selected-set.selected-end::after {
+  border-style: none;
+}
+
+.selected-start::before,
+.selected-end::before {
+  border-radius: 47%; // because the background shine effect
+}
+
+.selected-start::after {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.selected-end::after {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .clickable {
   cursor: pointer;
 }
 
-.mdc-body-today {
-  border-radius: 100%;
-}
-
+.mdc-body-today,
 .clickable:hover {
-  border-radius: 100%;
+  border-radius: 50%;
 }
 
 .mdc-badge {
@@ -120,20 +145,4 @@
 ::ng-deep .tooltip-helper {
   font-size: 12px;
   white-space: pre-line;
-}
-
-.selected-set.date-between::after {
-  border-style: none;
-}
-
-.selected-set.selected-start:not(.date-between) {
-  z-index: 0;
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
-}
-
-.selected-set.selected-end:not(.date-between) {
-  z-index: 0;
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
 }
