@@ -47,41 +47,29 @@
                   matTooltipClass="tooltip-helper" tabindex="-1" *ngIf="day.type == 'date'"
                   [ngClass]="config.calendarWeek? 'eight' : 'seven'" (click)="onClick(day, 'date')"
                   (mouseenter)="onMouseOver(day.date)">
-                  <div class="mdc-body-cell-content" [class.blurday]="config.bluredDays"
-                    [class.mdc-body-today]="day.date == today"
+                  <div class="mdc-body-cell-content" [class.mdc-body-today]="day.date == today"
                     [class.selected-set]="getCanIBeHighlighted(day.date)"
                     [class.selected-start]="day.date == selectedDayStart"
-                    [class.selected-end]="day.date == selectedDayEnd"
-                    [class.date-between]="getAmIBetween(day.date)">
+                    [class.selected-end]="day.date == selectedDayEnd" [class.date-between]="getAmIBetween(day.date)">
                     {{day.day}}
                   </div>
-                  <!-- <div class="mdc-body-cell-content mdc-body-cell-content-helper"
-                    [class.selected]="day.date == selectedDayStart || day.date == selectedDayEnd"
-                    [class.selected-set]="getCanIBeHighlighted(day.date)"
-                    [class.date-between]="getAmIBetween(day.date)">
-                  </div> -->
-                  <!-- <div class="mdc-body-cell-content mdc-body-cell-content-helper"
-                    [class.selected-set]="getCanIBeHighlighted(day.date)"
-                    [class.selected-start]="day.date == selectedDayStart"
-                    [class.selected-end]="day.date == selectedDayEnd">
-                  </div> -->
-                  <!-- <div class="mdc-body-cell-content" style="z-index: -3;border-radius: 4px;"
-                  [ngClass]="[day.date == selectedDayStart && selectedDayBetween.length > 0? 'selected-border-left': '']"
-                  [class.selected-border-right]="selectedDayBetween.length > 0 && day.date === selectedDayBetween[selectedDayBetween.length -1]">
-                                        [ngStyle]="{'background': (day.backgroundColor? day.backgroundColor:(day.isWeekendDay?weekendColor:''))}">
-                                        <ng-container
-                                            *ngIf="day.hasOwnProperty('badgeMode') && day.date != selectedDayStart && day.date != selectedDayEnd">
-                                            <span class="mdc-badge mdc-badge-int" *ngIf="day.badgeMode == 'Int'">
-                                                {{day.badgeInt}}
-                                            </span>
-                                            <span class="mdc-badge mdc-badge-icon" *ngIf="day.badgeMode == 'Icon'">
-                                                <mat-icon
-                                                    style="height: 20px;width: 20px;padding: 1px 2px;font-size: 20px;">
-                                                    {{day.badgeIcon}}
-                                                </mat-icon>
-                                            </span>
-                                        </ng-container>
-                                    </div> -->
+                  <div class="mdc-body-cell-content" style="z-index: -3;border-radius: 4px;"
+                    [class.weekend]="day.isWeekendDay && day.backgroundColor != '' && markWeekend"
+                    [class.blured-days]="bluredDays && day.backgroundColor"
+                    [ngStyle]="{'background': day.backgroundColor}">
+                    <!-- <ng-container
+                        *ngIf="day.hasOwnProperty('badgeMode') && day.date != selectedDayStart && day.date != selectedDayEnd">
+                        <span class="mdc-badge mdc-badge-int" *ngIf="day.badgeMode == 'Int'">
+                            {{day.badgeInt}}
+                        </span>
+                        <span class="mdc-badge mdc-badge-icon" *ngIf="day.badgeMode == 'Icon'">
+                            <mat-icon
+                                style="height: 20px;width: 20px;padding: 1px 2px;font-size: 20px;">
+                                {{day.badgeIcon}}
+                            </mat-icon>
+                        </span>
+                    </ng-container> -->
+                  </div>
                 </td>
                 <td role="gridcell" class="mdc-body-cell kw" tabindex="-1" *ngIf="day.type == 'kw'"
                   [ngClass]="config.calendarWeek? 'eight' : 'seven'">
