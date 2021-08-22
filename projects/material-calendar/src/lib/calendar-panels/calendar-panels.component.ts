@@ -32,6 +32,8 @@ export class CalendarPanelComponent implements OnInit {
   selectedDayStart: number = 0
   selectedDayBetween: number[] = []
   selectedDayEnd: number = 0
+  markWeekend = this._config.markWeekend
+  bluredDays = this._config.bluredDays
   isLoading = true
   monthOverrride = false
 
@@ -78,6 +80,8 @@ export class CalendarPanelComponent implements OnInit {
   @Input()
   set config(data: CalendarConfig) {
     this._config = data;
+    this.markWeekend = data.markWeekend
+    this.bluredDays = data.bluredDays
     this.generateX()
   }
   @Input()

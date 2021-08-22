@@ -2,6 +2,9 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "allowedNonPeerDependencies": ["."],
   "dest": "../../dist/material-calendar",
+  "assets": [
+    "./calendar-theme.scss"
+  ],
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {

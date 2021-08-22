@@ -1,10 +1,7 @@
 name: Build PR
 
 on:
-  push:
-    branches-ignore:
-      - "main"
-      - 'docs/**'
+  pull_request:
     paths-ignore:
       - "README.md"
       - 'docs/**'
