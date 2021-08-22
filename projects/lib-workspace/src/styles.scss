@@ -1,7 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+@import "../../material-calendar/calendar-theme.scss";
+@include mat-core();
 
-@import "./myTheme.scss";
+$mat-primary-palette: mat-palette($mat-indigo);
+$mat-accent-palette: mat-palette($mat-light-green);
 
-* {
-    font-family: "Roboto", sans-serif;
+$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
+$app-dark-theme: mat-dark-theme($mat-primary-palette, $mat-accent-palette);
+
+@include angular-material-theme($app-light-theme);
+@include calendar-theme($app-light-theme);
+
+// following section is for dark mode.
+// use appropriate class name for darkMode
+.darkMode {
+  @include angular-material-theme($app-dark-theme);
+  @include calendar-theme($app-dark-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

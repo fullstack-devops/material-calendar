@@ -87,3 +87,35 @@ Optionally provide your location:
 | {number}   badgeInt        | null | if badgeMode == 'Int', set our Number here |
 | {string}   badgeIcon       | null | if badgeMode == 'Icon', set Icon (Matireal-Icons) |
 | {string}   toolTip         | null | if set, this displays a mat-tooltip |
+
+## theaming
+
+Make sure your using the standard material palette!
+
+> Since Version 3.1.0 theaming is required.
+
+style.scss or theme.scss
+```scss
+@import "material-calendar/calendar-theme.scss";
+// standard angular material -->
+@import "~@angular/material/theming";
+@include mat-core();
+
+$mat-primary-palette: mat-palette($mat-indigo);
+$mat-accent-palette: mat-palette($mat-light-green);
+
+$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
+$app-dark-theme: mat-dark-theme($mat-primary-palette, $mat-accent-palette);
+
+@include angular-material-theme($app-light-theme);
+// <-- standard angular material
+// this include prowides the calendar with the right colors
+@include calendar-theme($app-light-theme);
+
+// following section is for dark mode and optional.
+// use appropriate class name for darkMode
+.darkMode {
+  @include angular-material-theme($app-dark-theme);
+  @include calendar-theme($app-dark-theme);
+}
+```
