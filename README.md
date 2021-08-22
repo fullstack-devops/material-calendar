@@ -20,6 +20,7 @@ If you want to give me feedback and don't want to open an issue on github, pleas
 - get a date back with the annotation "clickDate" (see example)
 - insert your own calendar data and render the new template
 - multiselect days optional (returns the daily span)
+- include your own [theme](https://eksrvb.github.io/material-calendar/api.html#theaming) (requiered since version 3.1.0)
 more in the docs... ;)
 
 ## Getting help

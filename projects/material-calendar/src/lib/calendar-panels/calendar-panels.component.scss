@@ -1,187 +1,148 @@
 .mdc-helper {
-    flex-flow: row wrap;
-    display: flex;
-    place-content: center space-around;
+  flex-flow: row wrap;
+  display: flex;
+  place-content: center space-around;
 }
 
 .mdc-month {
-    margin: 8px;
-    padding: 8px;
-    border-radius: 4px;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .month-header {
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .mdc-table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 .seven {
-    width: 7.14285714286%;
-    padding: 7.14285714286% 0;
+  width: 14.2857%;
+  padding: 7.14285714286% 0;
 }
 
 .eight {
-    width: 6.25%;
-    padding: 6.25% 0;
-}
-
-.mdc-table-header,
-.kw {
-    color: rgba(0, 0, 0, 0.38);
+  width: 12.5%;
+  padding: 6.25% 0;
 }
 
 .kw {
-    min-height: 10px;
-    border-right: solid 1px rgba(0, 0, 0, 0.12);
+  min-height: 10px;
 }
 
 .mdc-table-header th {
-    text-align: center;
-    padding: 0 0 8px 0;
-    font-size: 13px;
-    font-weight: 400;
+  text-align: center;
+  padding: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .mdc-body {
-    min-width: 224px;
-    font-size: 13px;
+  min-width: 224px;
+  font-size: 13px;
 }
 
-.mdc-body-label td {
-    height: 0;
-    line-height: 2;
-    color: rgba(0, 0, 0, 0.54);
-    font-size: 14px;
-    text-align: center;
-    font-weight: 500;
-}
 .mdc-table thead tr td button {
-    visibility: hidden;
+  visibility: hidden;
 }
 .mdc-table:first-child thead tr td:first-child button {
-    visibility: visible;
+  visibility: visible;
 }
 .mdc-table:last-child thead tr td:last-child button {
-    visibility: visible;
-}
-
-.placeholderDay {
-    opacity: 0.5;
+  visibility: visible;
 }
 
 .mdc-body-cell {
-    position: relative;
-    height: 0;
-    line-height: 0;
-    text-align: center;
-    outline: none;
+  position: relative;
+  height: 0;
+  line-height: 0;
+  text-align: center;
+  outline: none;
+  z-index: 1;
 }
 
-.mdc-body-cell-content {
-    position: absolute;
-    top: 0;
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mdc-body-cell-content,
+.mdc-body-cell-content::before,
+.mdc-body-cell-content::after {
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.mdc-body-cell-content-min {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    box-sizing: border-box;
-    height: 90%;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mdc-body-cell-content::before {
+  content: "";
+  z-index: -1;
+}
+.mdc-body-cell-content::after {
+  content: "";
+  z-index: -2;
+}
+
+.selected-set.date-between::after,
+.selected-set.selected-start::after,
+.selected-set.selected-end::after {
+  border-style: none;
+}
+
+.selected-start::before,
+.selected-end::before {
+  border-radius: 47%; // because the background shine effect
+}
+
+.selected-start::after {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.selected-end::after {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.mdc-body-today {
-    border: 1px solid rgba(0, 0, 0, 0.38);
-    border-radius: 100%;
-}
-
+.mdc-body-today,
 .clickable:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 100%;
+  border-radius: 50%;
 }
 
 .mdc-badge {
-    position: absolute;
-    top: -11px;
-    right: -11px;
-    width: 24px;
-    height: 24px;
-    text-align: center;
-    text-overflow: ellipsis;
-    display: inline-block;
-    border-radius: 50%;
-    transition: transform 200ms ease-in-out;
-    overflow: hidden;
-    white-space: nowrap;
-    pointer-events: none;
-    color: white;
-    background: lightcoral;
-    font-weight: 600;
-    font-size: 12px;
-    transform: none;
-    line-height: 22px;
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  text-overflow: ellipsis;
+  display: inline-block;
+  border-radius: 50%;
+  transition: transform 200ms ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  color: white;
+  background: lightcoral;
+  font-weight: 600;
+  font-size: 12px;
+  transform: none;
+  line-height: 22px;
 }
 
 ::ng-deep .tooltip-helper {
-    font-size: 12px;
-    white-space: pre-line;
-}
-
-.selected {
-    background-color: var(--primary-color);
-    z-index: -1;
-    border-radius: 50%;
-}
-
-.selected-border-left {
-    border: dashed 1px rgba(0, 0, 0, 0.38);
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
-    border-right: none;
-    z-index: -2;
-}
-
-.date-between {
-    border-top: dashed 1px rgba(0, 0, 0, 0.38);
-    border-bottom: dashed 1px rgba(0, 0, 0, 0.38);
-    z-index: -2;
-}
-
-.selected-border-right {
-    border: dashed 1px rgba(0, 0, 0, 0.38);
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-left: none;
-    z-index: -2;
-}
-
-.selected-set {
-    background-color: var(--primary-lighter-color);
-    border-style: none;
-}
-
-.blurday {
-    background: radial-gradient(circle at center, white 0, white 12px, transparent 14px, transparent 100%);
+  font-size: 12px;
+  white-space: pre-line;
 }

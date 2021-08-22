@@ -38,16 +38,19 @@ If you need an example for your pipeline you can find it in the sidebar under th
 > All available version are listed at [npmjs](https://www.npmjs.com/package/material-calendar)
 
 
-## A couple of impressions
+## A few impressions
 
-### One single panel without displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/monthly-onem-cdata.png)
+### One single panel without displaying calendar week and with dark theme
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-onem-cdata-kw_1.png)
 
 ### One single panel with displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/monthly-onem-cdata-kw.png)
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-onem-cdata-kw.png)
 
 ### Three panels with displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/monthly-threem-cdata-kw.png)
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-threem-cdata-kw_1.png)
 
-### A calendar with 12 months (annual-mode) and with displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/bugfix/unification-github-gitlab/docs/pictures/annual-cdata-kw.png)
+### Three panels with displaying calendar week and dark theme
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-threem-cdata-kw_2.png)
+
+### A calendar with 12 months (annual-mode) and without displaying calendar week
+![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/annual-cdata-kw.png)

@@ -1,7 +1,9 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
-import * as moment from 'moment';
+import * as moment_ from 'moment';
 import 'moment/min/locales';
 import { Calendar, Month, Day, DayC } from './models';
+
+const moment = moment_
 
 @Injectable({
   providedIn: 'root'

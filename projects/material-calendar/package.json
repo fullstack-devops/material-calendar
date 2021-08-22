@@ -4,7 +4,8 @@
   "license": "MIT",
   "peerDependencies": {},
   "dependencies": {
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "@angular/material": ">=12.0.0"
   },
   "repository": {
     "type": "git",
