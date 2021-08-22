@@ -37,32 +37,23 @@ export class AppComponent implements OnInit {
 
   dataSource: DayC[] = [
     {
-      date: 1624312800000,
+      date: 1634594400000,
       backgroundColor: '#0167c7',
       toolTip: 'Test ToolTip First',
-      badgeMode: 'Icon',
-      badgeInt: 5,
-      badgeIcon: 'edit'
     },
     {
-      date: 1624312800000,
+      date: 1634594400000,
       backgroundColor: 'rgb(6, 182, 0)',
       toolTip: 'Test ToolTip Second',
-      badgeMode: 'Icon',
-      badgeInt: 5,
-      badgeIcon: 'edit'
     },
     {
-      date: 1624658400000,
+      date: 1634853600000,
       backgroundColor: 'rgb(6, 182, 0)',
       toolTip: 'Test ToolTip 2',
-      /* badgeMode: 'Icon',
-      badgeInt: 5,
-      badgeIcon: 'edit' */
     },
     {
-      date: 1604199900000,
-      backgroundColor: 'blue'
+      date: 1635544800000,
+      backgroundColor: 'lightblue'
     }
   ]
 
