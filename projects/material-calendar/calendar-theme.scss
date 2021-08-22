@@ -36,16 +36,44 @@
     background-color: mat-color($primary, lighter);
   }
 
-  .selected-set.date-between::after {
-    background-color: mat-color($primary, lighter);
-    color: mat-color($primary, text);
-  }
-  .selected-set.selected-start:not(.date-between)::after,
-  .selected-set.selected-end:not(.date-between)::after {
-    background-color: mat-color($primary, lighter);
+  .weekend {
+    background-color: mat-color($foreground, divider);
   }
 
-  .blurday {
-    background: radial-gradient(circle at center, white 0, white 12px, transparent 14px, transparent 100%);
+  .date-between::after,
+  .selected-start::after,
+  .selected-end::after {
+    border-top: dashed 1px mat-color($foreground, secondary-text);
+    border-bottom: dashed 1px mat-color($foreground, secondary-text);
+  }
+
+  .selected-set.date-between {
+    color: mat-color($primary, lighter-contrast);
+  }
+
+  .selected-set.date-between::after,
+  .selected-set.selected-start::after,
+  .selected-set.selected-end::after {
+    background-color: mat-color($primary, lighter);
+  }
+  .selected-set.selected-start,
+  .selected-set.selected-end {
+    color: mat-color($primary, A500);
+  }
+
+  .selected-start::before,
+  .selected-end::before {
+    background-color: mat-color($primary);
+  }
+
+  .blured-days::after {
+    content: "";
+    background: radial-gradient(
+      circle at center,
+      mat-color($background, background) 0,
+      mat-color($background, background) 12px,
+      transparent 14px,
+      transparent 100%
+    );
   }
 }

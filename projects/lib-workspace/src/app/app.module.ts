@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserAnimationsModule,
     FormsModule,
     MatSlideToggleModule,
+    MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,

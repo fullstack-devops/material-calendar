@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "cp README.md projects/material-calendar/",
     "build": "ng build material-calendar --configuration production",
     "build:ivy": "ng build material-calendar --configuration ivy",
-    "prebuild": "cp README.md projects/material-calendar/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
