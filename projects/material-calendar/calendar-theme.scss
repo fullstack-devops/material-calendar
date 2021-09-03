@@ -14,6 +14,10 @@
   .mdc-body-today {
     border: 1px solid mat-color($foreground, secondary-text);
   }
+  
+  .mdc-month {
+    background-color: mat-color($background, dialog);
+  }
 
   .mdc-switches svg {
     fill: mat-color($foreground, base);
