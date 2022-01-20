@@ -5,13 +5,13 @@ This material calendar is just beginning. As in the angular material components,
 > Warning: all version before 3.0.0 are deprecated, please update to any version higher than 3.0.0!
 
 ### Working demo
-[demo github project](https://github.com/eksrvb/material-calendar-demo)
+[demo github project](https://github.com/fullstack-devops/material-calendar-demo)
 
 If you want to give me feedback and don't want to open an issue on github, please fill out the [form](https://forms.gle/W9TygXf65Yru3VHi7)
 
 ### Documentation
 
-[See the manual](https://eksrvb.github.io/material-calendar/) for setup, usage instructions and a lot more. (the documentation is still rising)
+[See the manual](https://fullstack-devops.github.io/material-calendar/) for setup, usage instructions and a lot more. (the documentation is still rising)
 
 
 ## Features
@@ -20,7 +20,7 @@ If you want to give me feedback and don't want to open an issue on github, pleas
 - get a date back with the annotation "clickDate" (see example)
 - insert your own calendar data and render the new template
 - multiselect days optional (returns the daily span)
-- include your own [theme](https://eksrvb.github.io/material-calendar/api.html#theaming) (requiered since version 3.1.0)
+- include your own [theme](https://fullstack-devops.github.io/material-calendar/api.html#theaming) (requiered since version 3.1.0)
 more in the docs... ;)
 
 ## Getting help

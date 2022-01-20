@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/eksrvb/material-calendar.git"
+    "url": "https://github.com/fullstack-devops/material-calendar.git"
   },
-  "homepage": "https://github.com/eksrvb/material-calendar",
+  "homepage": "https://github.com/fullstack-devops/material-calendar",
   "description": "A material calendar for angular applications",
   "engines": {
     "node": ">= 12.0.0",
@@ -19,6 +19,6 @@
     "yarn": ">= 1.13.0"
   },
   "bugs": {
-    "url": "https://github.com/eksrvb/material-calendar/issues"
+    "url": "https://github.com/fullstack-devops/material-calendar/issues"
   }
 }

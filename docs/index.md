@@ -41,16 +41,16 @@ If you need an example for your pipeline you can find it in the sidebar under th
 ## A few impressions
 
 ### One single panel without displaying calendar week and with dark theme
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-onem-cdata-kw_1.png)
+![example-picture](pictures/monthly-onem-cdata-kw_1.png)
 
 ### One single panel with displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-onem-cdata-kw.png)
+![example-picture](pictures/monthly-onem-cdata-kw.png)
 
 ### Three panels with displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-threem-cdata-kw_1.png)
+![example-picture](pictures/monthly-threem-cdata-kw_1.png)
 
 ### Three panels with displaying calendar week and dark theme
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/monthly-threem-cdata-kw_2.png)
+![example-picture](pictures/monthly-threem-cdata-kw_2.png)
 
 ### A calendar with 12 months (annual-mode) and without displaying calendar week
-![example-picture](https://github.com/eksrvb/material-calendar/raw/main/docs/pictures/annual-cdata-kw.png)
+![example-picture](pictures/annual-cdata-kw.png)
