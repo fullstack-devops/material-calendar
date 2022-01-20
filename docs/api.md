@@ -21,7 +21,7 @@ nav_order: 2
 
 You can operate the material calendar in two different modes.
 
-The first and most common is the [monthly](https://eksrvb.github.io/material-calendar/configuration/monthly) Mode. The second is an [annual](https://eksrvb.github.io/material-calendar/configuration/annual) mode that shows every 12 months of the year.
+The first and most common is the [monthly](/configuration/monthly) Mode. The second is an [annual](/configuration/annual) mode that shows every 12 months of the year.
 
 In addition to this modes, there is also a basic configuration, as shown below.
 
