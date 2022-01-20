@@ -24,7 +24,7 @@ jobs:
           node-version: '14.x'
       - name: Setup awesome-ci
         run: |
-          wget https://github.com/eksrvb/awesome-ci/releases/latest/download/awesome-ci
+          wget https://github.com/fullstack-devops/awesome-ci/releases/download/0.7.5/awesome-ci
           chmod +x awesome-ci
       - name: install npm packages
         run: |
