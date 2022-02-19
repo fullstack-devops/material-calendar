@@ -9,6 +9,11 @@ on:
       - '.github/PULL_REQUEST_TEMPLATE.md'
 
 jobs:
+  generate_infos:
+    uses: fullstack-devops/actions/.github/workflows/generate-build-infos.yml@main
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -17,21 +22,9 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
-      - name: Setup awesome-ci
-        run: |
-          wget https://github.com/fullstack-devops/awesome-ci/releases/download/0.7.5/awesome-ci
-          chmod +x awesome-ci
-      - name: install npm packages
-        run: |
-          # Retry 3 times before the steps actually fails
-          (echo "===== NPM Install Attempt: 1 ====" && npm ci) || \
-          (echo "===== NPM Install Attempt: 2 ====" && npm ci) || \
-          (echo "===== NPM Install Attempt: 3 ====" && npm ci) || \
-          (echo "==== NPM Install Step Failed ====" && exit 1)
-      - name: package Applikation
-        run: npm run build
-      - name: Dry-Run release
-        run: ./awesome-ci createRelease -patchLevel bugfix -dry-run
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          node-version: '16.x'
+          
+      - name: install packages
+        run: yarn
+      - name: build applikation
+        run: yarn run build
