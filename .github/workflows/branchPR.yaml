@@ -16,6 +16,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: generate_infos
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,3 +29,9 @@ jobs:
         run: yarn
       - name: build applikation
         run: yarn run build
+
+      - name: dryrun publish
+        working-directory: dist/material-calendar
+        run: |
+          npm version ${{ needs.generate_infos.outputs.version }}
+          npm publish -dry-run
