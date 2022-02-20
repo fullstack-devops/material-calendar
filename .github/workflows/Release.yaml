@@ -13,34 +13,40 @@ on:
       - '.github/PULL_REQUEST_TEMPLATE.md'
 
 jobs:
+  create_release:
+    uses: fullstack-devops/actions/.github/workflows/create-release.yml@main
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     runs-on: ubuntu-latest
+    needs: create_release
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Setup awesome-ci
+        uses: fullstack-devops/awesome-ci-action@main
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
-      - name: Setup awesome-ci
+          node-version: '16.x'
+
+      - name: install packages
+        run: yarn
+      - name: build applikation
+        run: yarn run build
+
+      - name: dryrun publish
+        working-directory: dist/material-calendar
         run: |
-          wget https://github.com/fullstack-devops/awesome-ci/releases/download/0.7.5/awesome-ci
-          chmod +x awesome-ci
-      - name: install npm packages
-        run: |
-          # Retry 3 times before the steps actually fails
-          (echo "===== NPM Install Attempt: 1 ====" && npm ci) || \
-          (echo "===== NPM Install Attempt: 2 ====" && npm ci) || \
-          (echo "===== NPM Install Attempt: 3 ====" && npm ci) || \
-          (echo "==== NPM Install Step Failed ====" && exit 1)
-      - name: package Applikation
-        run: npm run build
-      - name: set publish config
-        shell: bash
-        run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Create Release and Publish
-        run: ./awesome-ci createRelease -publishNpm dist/material-calendar/
+          npm version ${{ needs.generate_infos.outputs.version }}
+          npm publish -dry-run
+
+      - name: Publish release
+        run: awesome-ci release publish -releaseid "${{ needs.generate_infos.outputs.releaseid }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: set publish config
+        shell: bash
+        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_PUBLISH_TOKEN }}

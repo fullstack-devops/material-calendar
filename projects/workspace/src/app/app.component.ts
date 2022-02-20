@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CalendarConfig, DayC } from 'projects/material-calendar/src/public-api';
+import { CalendarConfig, Day } from 'projects/material-calendar/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +17,11 @@ export class AppComponent implements OnInit {
 
   placeholder = false // boolean
   isLoading = true
-  latestEvent = ""
+  latestEvent: Object | undefined
 
   monthsAfterBefore = Array(5).fill(0).map((x, i) => i);
-  monthsBefore = 0;
-  monthsAfter = 2;
+  monthsBefore = 2;
+  monthsAfter = 0;
 
   calendarConfig: CalendarConfig = {
     renderMode: 'monthly', // 'annual' | 'monthly'
@@ -35,25 +35,29 @@ export class AppComponent implements OnInit {
     markWeekend: true // default: true
   }
 
-  dataSource: DayC[] = [
+  dataSource: Day[] = [
     {
-      date: 1634594400000,
+      date: new Date(1634594400000),
       backgroundColor: '#0167c7',
       toolTip: 'Test ToolTip First',
+      dayNumber: ''
     },
     {
-      date: 1634594400000,
+      date: new Date(1634594400000),
       backgroundColor: 'rgb(6, 182, 0)',
       toolTip: 'Test ToolTip Second',
+      dayNumber: ''
     },
     {
-      date: 1634853600000,
+      date: new Date(1634853600000),
       backgroundColor: 'rgb(6, 182, 0)',
       toolTip: 'Test ToolTip 2',
+      dayNumber: ''
     },
     {
-      date: 1635544800000,
-      backgroundColor: 'lightblue'
+      date: new Date(1635544800000),
+      backgroundColor: 'lightblue',
+      dayNumber: ''
     }
   ]
 
@@ -73,7 +77,7 @@ export class AppComponent implements OnInit {
     this.isLoading = false
   }
 
-  testMethod(event) {
+  testMethod(event: Object) {
     this.latestEvent = event;
     console.log(event)
   }
