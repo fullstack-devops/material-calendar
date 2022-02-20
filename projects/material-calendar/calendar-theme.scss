@@ -62,7 +62,7 @@
   }
   .selected-set.selected-start,
   .selected-set.selected-end {
-    color: mat-color($primary, A500);
+    color: mat-color($primary, secondary-text);
   }
 
   .selected-start::before,

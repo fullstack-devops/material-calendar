@@ -43,15 +43,15 @@
           <ng-container *ngFor="let row of month.render, let iRender = index">
             <tr role="row">
               <ng-container *ngFor="let day of row, let iDay = index">
-                <td role="gridcell" class="mdc-body-cell clickable tooltip" [matTooltip]="day.toolTip"
+                <td role="gridcell" class="mdc-body-cell clickable tooltip" [matTooltip]="day.toolTip ? day.toolTip: ''"
                   matTooltipClass="tooltip-helper" tabindex="-1" *ngIf="day.type == 'date'"
                   [ngClass]="config.calendarWeek? 'eight' : 'seven'" (click)="onClick(day, 'date')"
                   (mouseenter)="onMouseOver(day.date)">
-                  <div class="mdc-body-cell-content" [class.mdc-body-today]="day.date == today"
+                  <div class="mdc-body-cell-content" [class.mdc-body-today]="isToday(day.date)"
                     [class.selected-set]="getCanIBeHighlighted(day.date)"
-                    [class.selected-start]="day.date == selectedDayStart"
-                    [class.selected-end]="day.date == selectedDayEnd" [class.date-between]="getAmIBetween(day.date)">
-                    {{day.day}}
+                    [class.selected-start]="isSelectedDayStart(day.date)"
+                    [class.selected-end]="isSelectedDayEnd(day.date)" [class.date-between]="getAmIBetween(day.date)">
+                    {{day.dayNumber}}
                   </div>
                   <div class="mdc-body-cell-content" style="z-index: -3;border-radius: 4px;"
                     [class.weekend]="day.isWeekendDay && day.backgroundColor != '' && markWeekend"
@@ -82,10 +82,10 @@
                 </td>
                 <!-- PalceholderDays -->
                 <td role="gridcell" class="mdc-body-cell clickable placeholderDay" tabindex="-1"
-                  (click)="onClick(day.date, 'placeholderDay')" *ngIf="day.type == 'placeholderDay' && placeholderDay"
+                  (click)="onClick(day, 'placeholderDay')" *ngIf="day.type == 'placeholderDay' && placeholderDay"
                   [ngClass]="config.calendarWeek? 'eight' : 'seven'">
                   <div class="mdc-body-cell-content">
-                    {{ day.day }}
+                    {{ day.dayNumber }}
                   </div>
                 </td>
                 <td role="gridcell" class="mdc-body-cell" tabindex="-1"

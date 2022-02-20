@@ -1,9 +1,9 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import * as moment_ from 'moment';
 import 'moment/min/locales';
-import { Calendar, Month, Day, DayC } from './models';
+import { Calendar, Month, Day } from './models';
 
-const moment = moment_
+export const moment = moment_
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +12,20 @@ export class CalendarService {
 
   constructor(@Inject(LOCALE_ID) public locale: string) { }
 
-  momentLoc = moment.updateLocale(this.locale.substr(0, 2), {
+  momentLoc = moment.updateLocale(this.locale.substring(0, 2), {
     week: {
       dow: 1, // First day of week is Monday
       doy: 4  // First week of year must contain 4 January (7 + 1 - 4)
     }
   });
   monthNames = this.momentLoc.monthsShort()
+  dayNames = this.momentLoc.weekdaysShort()
   dayNamesEn = this.momentLoc.weekdaysShort()
   dayNamesDeVor = JSON.parse(JSON.stringify(this.dayNamesEn))
   dayNamesDe = this.dayNamesDeVor.push(this.dayNamesDeVor.shift())
 
-  dataSourceCustom: DayC[] = null
-  daysAbsolute: number[] = []
+  dataSourceCustom: Day[] = []
+  daysAbsolute: Date[] = []
 
   /**
    * @param {String}     mode             calendar mode (monthly|annual)
@@ -35,10 +36,11 @@ export class CalendarService {
    * @param {Number}     monthsBefore     months before the selected month, default 0
    * @param {Number}     monthsAfter      months after the selected month, default 0
   */
-  generateMatrix(mode: string, calendarWeek: boolean, dataSource?: DayC[], year?: number, currMonth?: number, monthsBefore?: number, monthsAfter?: number) {
-    let cal;
-    this.daysAbsolute = []
+  generateMatrix(mode: string, calendarWeek: boolean, dataSource: Day[], year: number, currMonth: number, monthsBefore: number, monthsAfter: number): Calendar {
+    let cal: Calendar;
     this.dataSourceCustom = dataSource
+    this.daysAbsolute = []
+
     monthsAfter = monthsAfter ? parseInt(monthsAfter.toString(), 10) : monthsAfter
     monthsBefore = monthsBefore ? parseInt(monthsBefore.toString(), 10) : monthsBefore
     currMonth = currMonth ? parseInt(currMonth.toString(), 10) : currMonth
@@ -61,7 +63,8 @@ export class CalendarService {
       cal = {
         months: months,
         dayNames: this.dayNamesDeVor,
-        year: year
+        year: year,
+        daysAbsolute: this.daysAbsolute
       }
     } else {
       // Calendar is a full year
@@ -72,12 +75,12 @@ export class CalendarService {
       month.days.forEach(day => {
         Object.assign(day, { type: 'date' })
       })
-      let render = month.days
+      let render: Day[] = month.days
       const firstMonthDay = month.days[0]
       let currMonth = moment(month.days[0].date)
       const dayOfWeek = currMonth.day() == 0 ? 7 : currMonth.day()
-      const nextMonth = moment(currMonth.add(1, 'M')['_d'])
-      const nextMonthDay: Day = this.generateDay(new Date(nextMonth.toDate()))
+      const nextMonth = moment(currMonth.add(1, 'M'))
+      const nextMonthDay: Day = this.generateDay(nextMonth)
       // Vormonat
       for (let i = 0; i < dayOfWeek - 1; i++) {
         render.splice(i, 0, this.makeWJObjekt(firstMonthDay, 'placeholderDay', (dayOfWeek - 1) - i));
@@ -111,37 +114,47 @@ export class CalendarService {
       }
 
       Object.assign(month, { render: renderTr })
-      Object.assign(cal, { daysAbsolute: this.daysAbsolute })
-      delete month.days
+      cal.daysAbsolute = this.daysAbsolute
+      // month.days = []
     });
     return cal;
   }
 
-  makeWJObjekt(day: Day, type: string, dateBack?: number) {
-    let newDay = null
+  makeWJObjekt(day: Day, type: string, dateBack?: number): Day {
+    let newDay: Day
+    let newMDate: moment.Moment
     if (dateBack) {
-      newDay = moment(day.date).subtract(dateBack, 'days')
+      newMDate = moment(day.date).subtract(dateBack, 'days')
     } else {
-      newDay = moment(day.date)
+      newMDate = moment(day.date)
     }
-    let result
     switch (type) {
       case 'kw':
-        result = {
+        newDay = {
+          dayNumber: '',
+          date: newMDate.toDate(),
           kw: day.kw,
           type: 'kw'
         }
         break;
       case 'placeholderDay':
-        result = {
-          kw: newDay.week(),
+        newDay = {
+          dayNumber: newMDate.format('D'),
+          date: newMDate.toDate(),
+          kw: newMDate.week(),
           type: 'placeholderDay',
-          day: newDay.date(),
-          isWeekendDay: this.isWeekend(new Date(newDay))
+          isWeekendDay: this.isWeekend(newMDate)
         }
         break;
+      default:
+        newDay = {
+          dayNumber: newMDate.format('D'),
+          date: newMDate.toDate(),
+          kw: day.kw,
+          type: 'not-set'
+        }
     }
-    return result
+    return newDay
   }
 
   generateCal(year: number): Calendar {
@@ -151,32 +164,37 @@ export class CalendarService {
     }
     return {
       year: year,
-      dayNames: this.dayNamesDeVor,
-      months: months
+      dayNames: this.dayNames,
+      months: months,
+      daysAbsolute: this.daysAbsolute
     }
   }
 
-  generateMonth(monthNumber, year) {
-    const daysInMonth = moment(`${year}-${monthNumber + 1}`, "YYYY-MM").daysInMonth()
+  generateMonth(monthNumber: number, year: number): Month {
+    const monthDay = moment(`${year}-${monthNumber + 1}`, "YYYY-MM")
+    const daysInMonth = monthDay.daysInMonth()
     const days: Day[] = [];
     for (let index = 0; index < daysInMonth; index++) {
       const currentDay = new Date(year, monthNumber, (index + 1))
-      days.push(this.generateDay(currentDay))
+      days.push(this.generateDay(moment(currentDay)))
     }
     return {
       name: this.monthNames[monthNumber],
       year: year,
-      days: days
+      days: days,
+      render: [[]]
     }
   }
 
-  generateDay(currentDay: Date): Day {
-    let tmpDay = JSON.parse(JSON.stringify(this.dataSourceCustom))
-    let day
+  generateDay(currentDay: moment.Moment): Day {
+    let tmpDay = this.dataSourceCustom
+    let day: Day
 
     if (tmpDay != null) {
       // Filter nach vorhandenem override
-      const filter = tmpDay.filter(obj => obj.date === currentDay.setHours(0, 0, 0, 0))
+      const filter = tmpDay.filter(obj => {
+        return currentDay.isSame(obj.date, 'day');
+      })
       if (filter.length > 0) {
         let backgroundColor = ''
         let toolTip = ''
@@ -201,38 +219,42 @@ export class CalendarService {
             toolTip = `${filter[0].toolTip} \n ${filter[1].toolTip} \n ${filter[2].toolTip} \n ${filter[3].toolTip}`
             break;
           default:
-            backgroundColor = filter[0].backgroundColor
-            toolTip = filter[0].toolTip
+            if (filter[0].backgroundColor) {
+              backgroundColor = filter[0].backgroundColor
+            }
+            if (filter[0].toolTip) {
+              toolTip = filter[0].toolTip
+            }
             break;
         }
         day = filter[0]
         day.backgroundColor = backgroundColor
         day.toolTip = toolTip
-        day.kw = moment(currentDay).week()
-        day.date = currentDay.setHours(0, 0, 0, 0)
-        day.day = currentDay.getDate()
-        day.isWeekendDay = this.isWeekend(currentDay)
+        day['kw'] = currentDay.week()
+        day.date = currentDay.toDate()
+        day.dayNumber = currentDay.format('D')
+        day['isWeekendDay'] = this.isWeekend(currentDay)
       } else {
         day = {
-          kw: moment(currentDay).week(),
-          day: currentDay.getDate(),
-          date: currentDay.setHours(0, 0, 0, 0),
+          kw: currentDay.week(),
+          dayNumber: currentDay.format('D'),
+          date: currentDay.toDate(),
           isWeekendDay: this.isWeekend(currentDay)
         }
       }
     } else {
       day = {
-        kw: moment(currentDay).week(),
-        day: currentDay.getDate(),
-        date: currentDay.setHours(0, 0, 0, 0),
+        kw: currentDay.week(),
+        dayNumber: currentDay.format('D'),
+        date: currentDay.toDate(),
         isWeekendDay: this.isWeekend(currentDay)
       }
     }
-    this.daysAbsolute.push(currentDay.setHours(0, 0, 0, 0))
+    this.daysAbsolute.push(currentDay.toDate())
     return day
   }
 
-  isWeekend(date: Date): boolean {
-    return parseInt(moment(date).format('E'), 0) > 5
+  isWeekend(date: moment.Moment): boolean {
+    return parseInt(date.format('E'), 0) > 5
   }
 }

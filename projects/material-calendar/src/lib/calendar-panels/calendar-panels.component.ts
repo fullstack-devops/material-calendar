@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
-import { CalendarService } from '../service/calendar.service';
-import { CalendarConfig, DayC } from '../service/models';
+import { CalendarService, moment } from '../service/calendar.service';
+import { Calendar, CalendarConfig, Day } from '../service/models';
 
 @Component({
   selector: 'calendar-panel',
@@ -20,18 +20,18 @@ export class CalendarPanelComponent implements OnInit {
     markWeekend: true,
     panelWidth: '350px'
   };
-  private _mode: string;
-  private _dataSource: DayC[] = null;
+  private _mode: string = '';
+  private _dataSource: Day[] = [];
   private _month = new Date().getUTCMonth();
   private _year: number = new Date().getFullYear()
   private _monthsBefore: number = 0;
   private _monthsAfter: number = 0;
 
-  calendar = null
-  today = new Date().setHours(0, 0, 0, 0)
-  selectedDayStart: number = 0
-  selectedDayBetween: number[] = []
-  selectedDayEnd: number = 0
+  calendar: Calendar = new Calendar()
+  today = new Date()
+  selectedDayStart: Date | undefined
+  selectedDayBetween: Date[] = []
+  selectedDayEnd: Date | undefined
   markWeekend = this._config.markWeekend
   bluredDays = this._config.bluredDays
   isLoading = true
@@ -39,13 +39,13 @@ export class CalendarPanelComponent implements OnInit {
 
   weekendColor = 'rgba(0, 0, 0, .25)'
 
-  get config() {
+  get config(): CalendarConfig {
     return this._config;
   }
   get mode(): string {
     return this._mode;
   }
-  get dataSource(): DayC[] {
+  get dataSource(): Day[] {
     return this._dataSource;
   }
   get month(): number {
@@ -62,7 +62,7 @@ export class CalendarPanelComponent implements OnInit {
   }
 
   @Input()
-  set dataSource(data: DayC[]) {
+  set dataSource(data: Day[]) {
     this._dataSource = data;
     this.generateX()
   }
@@ -107,8 +107,8 @@ export class CalendarPanelComponent implements OnInit {
   keyEvent(event: KeyboardEvent) {
     if (event.key === "Escape") {
       this.selectedDayBetween = []
-      this.selectedDayStart = 0
-      this.selectedDayEnd = 0
+      this.selectedDayStart = undefined
+      this.selectedDayEnd = undefined
     }
   }
 
@@ -118,14 +118,14 @@ export class CalendarPanelComponent implements OnInit {
     this.isLoading = false
   }
 
-  onClick(day, type) {
-    if (type == 'date' && this.config.selectMode == 'range') {
-      if (this.selectedDayStart != 0 && this.selectedDayEnd != 0) {
+  onClick(day: Day, type: string) {
+    if (type === 'date' && this.config.selectMode === 'range') {
+      if (this.selectedDayStart != undefined && this.selectedDayEnd != undefined) {
         this.selectedDayBetween = []
-        this.selectedDayStart = 0
-        this.selectedDayEnd = 0
+        this.selectedDayStart = undefined
+        this.selectedDayEnd = undefined
       }
-      if (this.selectedDayStart > day.date || this.selectedDayStart === 0) {
+      if (moment(day.date).isBefore(this.selectedDayStart, 'day') || this.selectedDayStart === undefined) {
         this.selectedDayStart = day.date
       } else {
         this.selectedDayEnd = day.date
@@ -134,7 +134,7 @@ export class CalendarPanelComponent implements OnInit {
             mode: 'range',
             startDay: this.selectedDayStart,
             endDay: this.selectedDayEnd,
-            effectedDays: [this.selectedDayStart, ...this.selectedDayBetween]
+            effectedDays: [this.selectedDayStart, ...this.selectedDayBetween, this.selectedDayEnd]
           }
         );
       }
@@ -143,39 +143,60 @@ export class CalendarPanelComponent implements OnInit {
     }
   }
 
-  onMouseOver(dateComp) {
-    if (this.selectedDayStart != 0 && this.selectedDayEnd == 0) {
-      this.selectedDayBetween = this.calendar.daysAbsolute.filter(date => date <= dateComp && date > this.selectedDayStart)
-      const fIndex = this.selectedDayBetween.indexOf(dateComp)
-      if (fIndex === this.selectedDayBetween.length - 1) {
-        return true
-      } else {
-        return false
-      }
+  onMouseOver(dateComp: Date) {
+    if (this.selectedDayStart != undefined && this.selectedDayEnd == undefined) {
+      this.selectedDayBetween = this.calendar.daysAbsolute.filter(date => {
+        return moment(date).isBetween(this.selectedDayStart, dateComp, 'day')
+      })
     }
   }
 
-  getAmIBetween(date) {
-    const fIndex = this.selectedDayBetween.indexOf(date)
+  getAmIBetween(date: Date): boolean {
+    const fIndex = this.selectedDayBetween.findIndex(selDate => {
+      return moment(selDate).isSame(date, 'day')
+    })
     if (fIndex != -1) {
-      if (this.selectedDayBetween.length === fIndex + 1) {
-        return false
-      } else {
-        return true
-      }
+      return true
     } else {
       return false
     }
   }
 
-  getCanIBeHighlighted(date) {
-    if (this.selectedDayStart != 0 && this.selectedDayEnd != 0 && this.getAmIBetween(date)
-      || (this.selectedDayStart === date && this.selectedDayEnd != 0)
-      || (this.selectedDayEnd === date && this.selectedDayStart != 0)) {
+  isSelectedDayStart(date: Date): boolean {
+    if (this.selectedDayStart) {
+      return moment(this.selectedDayStart).isSame(date, 'day')
+    } else {
+      return false
+    }
+  }
+  isSelectedDayEnd(date: Date): boolean {
+    if (this.selectedDayEnd) {
+      return moment(this.selectedDayEnd).isSame(date, 'day')
+    } else {
+      if (this.selectedDayBetween.length > 0) {
+        if (moment(this.selectedDayBetween[this.selectedDayBetween.length-1]).add(1, 'd').isSame(date, 'day')) {
+          return true
+        }
+      }
+      return false
+    }
+  }
+  isToday(date: Date): boolean {
+    return moment().isSame(date, 'day')
+  }
+
+  getCanIBeHighlighted(date: Date) {
+    if (this.selectedDayEnd) {
+      if (!moment(this.selectedDayStart).isSame(date, 'day') && !moment(this.selectedDayEnd).isSame(date, 'day') && this.getAmIBetween(date)
+      || (moment(this.selectedDayEnd).isSame(date, 'day') && this.selectedDayEnd != undefined)
+      || (moment(this.selectedDayStart).isSame(date, 'day') && this.selectedDayStart != undefined)) {
         return true
       } else {
         return false
       }
+    } else {
+      return false
+    }
   }
 
   onMonthForward() {
@@ -203,7 +224,14 @@ export class CalendarPanelComponent implements OnInit {
   generateX() {
     const usedYear = this.monthOverrride ? this._year : this.year
     const usedMonth = this.monthOverrride ? this._month : this.month
-    this.calendar = this.calendarService.generateMatrix(this.config.renderMode, this.config.calendarWeek, this.dataSource, usedYear, usedMonth, this.monthsBefore, this.monthsAfter)
+    this.calendar = this.calendarService.generateMatrix(
+      this.config.renderMode,
+      this.config.calendarWeek,
+      this.dataSource,
+      usedYear,
+      usedMonth,
+      this.monthsBefore,
+      this.monthsAfter)
   }
 
 }

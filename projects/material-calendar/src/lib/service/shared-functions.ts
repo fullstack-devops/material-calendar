@@ -7,13 +7,14 @@ export class SharedFunctions {
 
     constructor() { }
 
-    lightOrDarkTextColor(color) {
+    /* lightOrDarkTextColor(color: string) {
         // Variables for red, green, blue values
         var r, g, b, hsp;
+        let colorMached: RegExpMatchArray | null
         // Check the format of the color, HEX or RGB?
         if (color.match(/^rgb/)) {
             // If RGB --> store the red, green, blue values in separate variables
-            color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+            colorMached = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
             r = color[1];
             g = color[2];
             b = color[3];
@@ -39,5 +40,5 @@ export class SharedFunctions {
         else {
             return '#ffffff';
         }
-    }
+    } */
 }
